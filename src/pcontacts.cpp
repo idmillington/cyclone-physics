@@ -16,6 +16,7 @@ using namespace cyclone;
 
 // Contact implementation
 
+// > PContactResolve
 void ParticleContact::resolve(real duration)
 {
     resolveVelocity(duration);
@@ -29,6 +30,7 @@ real ParticleContact::calculateSeparatingVelocity() const
     return relativeVelocity * contactNormal;
 }
 
+// > PContactResolveVelocity
 void ParticleContact::resolveVelocity(real duration)
 {
     // Find the velocity in the direction of the contact
@@ -45,6 +47,7 @@ void ParticleContact::resolveVelocity(real duration)
     // Calculate the new separating velocity
     real newSepVelocity = -separatingVelocity * restitution;
 
+    // < PContactResolve
     // Check the velocity build-up due to acceleration only
     Vector3 accCausedVelocity = particle[0]->getAcceleration();
     if (particle[1]) accCausedVelocity -= particle[1]->getAcceleration();
@@ -61,6 +64,7 @@ void ParticleContact::resolveVelocity(real duration)
         if (newSepVelocity < 0) newSepVelocity = 0;
     }
 
+    // > PContactResolve
     real deltaVelocity = newSepVelocity - separatingVelocity;
 
     // We apply the change in velocity to each object in proportion to
@@ -91,37 +95,48 @@ void ParticleContact::resolveVelocity(real duration)
             );
     }
 }
+// < PContactResolve; PContactResolveVelocity
 
+// > PContactInterpenetration
 void ParticleContact::resolveInterpenetration(real duration)
 {
     // If we don't have any penetration, skip this step.
     if (penetration <= 0) return;
 
-    // The movement of each object is based on their inverse mass, so
-    // total that.
+    // The movement of each object is based on their inverse mass, 
+    // so total that.
     real totalInverseMass = particle[0]->getInverseMass();
     if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
 
     // If all particles have infinite mass, then we do nothing
     if (totalInverseMass <= 0) return;
 
-    // Find the amount of penetration resolution per unit of inverse mass
-    Vector3 movePerIMass = contactNormal * (penetration / totalInverseMass);
+    // Find the amount of penetration resolution per unit 
+    // of inverse mass.
+    Vector3 movePerIMass = 
+        contactNormal * (penetration / totalInverseMass);
 
     // Calculate the the movement amounts
     particleMovement[0] = movePerIMass * particle[0]->getInverseMass();
     if (particle[1]) {
-        particleMovement[1] = movePerIMass * -particle[1]->getInverseMass();
+        particleMovement[1] = 
+            movePerIMass * -particle[1]->getInverseMass();
     } else {
         particleMovement[1].clear();
     }
 
     // Apply the penetration resolution
-    particle[0]->setPosition(particle[0]->getPosition() + particleMovement[0]);
+    particle[0]->setPosition(
+        particle[0]->getPosition() + particleMovement[0]
+        );
+
     if (particle[1]) {
-        particle[1]->setPosition(particle[1]->getPosition() + particleMovement[1]);
+        particle[1]->setPosition(
+            particle[1]->getPosition() + particleMovement[1]
+            );
     }
 }
+// < PContactInterpenetration
 
 ParticleContactResolver::ParticleContactResolver(unsigned iterations)
 :
@@ -134,6 +149,7 @@ void ParticleContactResolver::setIterations(unsigned iterations)
     ParticleContactResolver::iterations = iterations;
 }
 
+// > PCResolverResolve
 void ParticleContactResolver::resolveContacts(ParticleContact *contactArray,
                                               unsigned numContacts,
                                               real duration)
@@ -163,9 +179,10 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray,
         // Resolve this contact
         contactArray[maxIndex].resolve(duration);
 
+        // < PCResolverResolve
         // Update the interpenetrations for all particles
         Vector3 *move = contactArray[maxIndex].particleMovement;
-        for (i = 0; i < numContacts; i++)
+        for (i = 0; i < numContacts; i++) 
         {
             if (contactArray[i].particle[0] == contactArray[maxIndex].particle[0])
             {
@@ -188,6 +205,8 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray,
             }
         }
 
+        // > PCResolverResolve
         iterationsUsed++;
     }
 }
+// < PCResolverResolve

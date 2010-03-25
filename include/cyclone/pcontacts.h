@@ -34,6 +34,7 @@ namespace cyclone {
      */
     class ParticleContactResolver;
 
+    // > PContactIntro
     /**
      * A Contact represents two objects in contact (in this case
      * ParticleContact representing two Particles). Resolving a
@@ -44,10 +45,13 @@ namespace cyclone {
      * contact details. To resolve a set of contacts, use the particle
      * contact resolver class.
      */
+    // > PContact
     class ParticleContact
     {
+        // < PContactIntro
         // ... Other ParticleContact code as before ...
 
+        // < PContact
 
         /**
          * The contact resolver object needs access into the contacts to
@@ -55,7 +59,7 @@ namespace cyclone {
          */
         friend ParticleContactResolver;
 
-
+        // > PContactIntro
     public:
         /**
          * Holds the particles that are involved in the contact. The
@@ -72,11 +76,14 @@ namespace cyclone {
          * Holds the direction of the contact in world coordinates.
          */
         Vector3 contactNormal;
+        // < PContactIntro
 
+        // > PContactInterpenetrationDef
         /**
          * Holds the depth of penetration at the contact.
          */
         real penetration;
+        // < PContactInterpenetrationDef
 
         /**
          * Holds the amount each particle is moved by during interpenetration
@@ -84,6 +91,7 @@ namespace cyclone {
          */
         Vector3 particleMovement[2];
 
+        // > PContactResolve
     protected:
         /**
          * Resolves this contact, for both velocity and interpenetration.
@@ -95,19 +103,27 @@ namespace cyclone {
          */
         real calculateSeparatingVelocity() const;
 
+        // > PContactInterpenetration
     private:
+        // < PContactInterpenetration
         /**
          * Handles the impulse calculations for this collision.
          */
         void resolveVelocity(real duration);
+        // < PContactResolve
 
+        // > PContactInterpenetration
         /**
          * Handles the interpenetration resolution for this contact.
          */
         void resolveInterpenetration(real duration);
+        // < PContactInterpenetration
 
+        // > PContactIntro; PContact
     };
+    // < PContactIntro; PContact
 
+    // > PCResolverResolve
     /**
      * The contact resolution routine for particle contacts. One
      * resolver instance can be shared for the whole simulation.
@@ -140,6 +156,7 @@ namespace cyclone {
         /**
          * Resolves a set of particle contacts for both penetration
          * and velocity.
+         // < PCResolverResolve
          *
          * Contacts that cannot interact with each other should be
          * passed to separate calls to resolveContacts, as the
@@ -165,12 +182,15 @@ namespace cyclone {
          *
          * @param duration The duration of the previous integration step.
          * This is used to compensate for forces applied.
-        */
+         // > PCResolverResolve
+         */
         void resolveContacts(ParticleContact *contactArray,
             unsigned numContacts,
             real duration);
     };
+    // < PCResolverResolve
 
+    // > ParticleContactGenerator
     /**
      * This is the basic polymorphic interface for contact generators
      * applying to particles.
@@ -189,8 +209,7 @@ namespace cyclone {
         virtual unsigned addContact(ParticleContact *contact,
                                     unsigned limit) const = 0;
     };
-
-
+    // < ParticleContactGenerator
 
 } // namespace cyclone
 

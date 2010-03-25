@@ -16,7 +16,7 @@
 #include "body.h"
 #include "pcontacts.h"
 #include "pworld.h"
-#include "collide_fine.h"
+#include "collide_narrow.h"
 #include "contacts.h"
 #include "fgen.h"
 #include "joints.h"

@@ -70,6 +70,7 @@ Gravity::Gravity(const Vector3& gravity)
 {
 }
 
+// > GravityFG
 void Gravity::updateForce(RigidBody* body, real duration)
 {
     // Check that we do not have infinite mass
@@ -78,6 +79,7 @@ void Gravity::updateForce(RigidBody* body, real duration)
     // Apply the mass-scaled force to the body
     body->addForce(gravity * body->getMass());
 }
+// < GravityFG
 
 Spring::Spring(const Vector3 &localConnectionPt,
                RigidBody *other,
@@ -92,6 +94,7 @@ Spring::Spring(const Vector3 &localConnectionPt,
 {
 }
 
+// > SpringFG
 void Spring::updateForce(RigidBody* body, real duration)
 {
     // Calculate the two ends in world space
@@ -111,14 +114,18 @@ void Spring::updateForce(RigidBody* body, real duration)
     force *= -magnitude;
     body->addForceAtPoint(force, lws);
 }
+// < SpringFG
 
-Aero::Aero(const Matrix3 &tensor, const Vector3 &position, const Vector3 *windspeed)
+Aero::Aero(const Matrix3 &tensor, 
+           const Vector3 &position, 
+           const Vector3 *windspeed)
 {
     Aero::tensor = tensor;
     Aero::position = position;
     Aero::windspeed = windspeed;
 }
 
+// > AeroFG
 void Aero::updateForce(RigidBody *body, real duration)
 {
     Aero::updateForceFromTensor(body, duration, tensor);
@@ -141,9 +148,13 @@ void Aero::updateForceFromTensor(RigidBody *body, real duration,
     // Apply the force
     body->addForceAtBodyPoint(force, position);
 }
+// < AeroFG
 
-AeroControl::AeroControl(const Matrix3 &base, const Matrix3 &min, const Matrix3 &max,
-                              const Vector3 &position, const Vector3 *windspeed)
+AeroControl::AeroControl(const Matrix3 &base, 
+                         const Matrix3 &min, 
+                         const Matrix3 &max,
+                         const Vector3 &position, 
+                         const Vector3 *windspeed)
 :
 Aero(base, position, windspeed)
 {
@@ -152,30 +163,36 @@ Aero(base, position, windspeed)
     controlSetting = 0.0f;
 }
 
+// > AeroControlFG
 Matrix3 AeroControl::getTensor()
 {
     if (controlSetting <= -1.0f) return minTensor;
     else if (controlSetting >= 1.0f) return maxTensor;
     else if (controlSetting < 0)
     {
-        return Matrix3::linearInterpolate(minTensor, tensor, controlSetting+1.0f);
+        return Matrix3::linearInterpolate(minTensor, 
+                                          tensor, 
+                                          controlSetting+1.0f);
     }
     else if (controlSetting > 0)
     {
-        return Matrix3::linearInterpolate(tensor, maxTensor, controlSetting);
+        return Matrix3::linearInterpolate(tensor, 
+                                          maxTensor, 
+                                          controlSetting);
     }
     else return tensor;
-}
-
-void AeroControl::setControl(real value)
-{
-    controlSetting = value;
 }
 
 void AeroControl::updateForce(RigidBody *body, real duration)
 {
     Matrix3 tensor = getTensor();
     Aero::updateForceFromTensor(body, duration, tensor);
+}
+// < AeroControlFG
+
+void AeroControl::setControl(real value)
+{
+    controlSetting = value;
 }
 
 void Explosion::updateForce(RigidBody* body, real duration)

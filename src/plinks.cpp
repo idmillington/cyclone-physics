@@ -14,6 +14,7 @@
 
 using namespace cyclone;
 
+// > CableCG
 real ParticleLink::currentLength() const
 {
     Vector3 relativePos = particle[0]->getPosition() -
@@ -38,7 +39,8 @@ unsigned ParticleCable::addContact(ParticleContact *contact,
     contact->particle[1] = particle[1];
 
     // Calculate the normal
-    Vector3 normal = particle[1]->getPosition() - particle[0]->getPosition();
+    Vector3 normal = 
+        particle[1]->getPosition() - particle[0]->getPosition();
     normal.normalise();
     contact->contactNormal = normal;
 
@@ -47,7 +49,9 @@ unsigned ParticleCable::addContact(ParticleContact *contact,
 
     return 1;
 }
+// < CableCG
 
+// > RodCG
 unsigned ParticleRod::addContact(ParticleContact *contact,
                                   unsigned limit) const
 {
@@ -65,7 +69,8 @@ unsigned ParticleRod::addContact(ParticleContact *contact,
     contact->particle[1] = particle[1];
 
     // Calculate the normal
-    Vector3 normal = particle[1]->getPosition() - particle[0]->getPosition();
+    Vector3 normal = 
+        particle[1]->getPosition() - particle[0]->getPosition();
     normal.normalise();
 
     // The contact normal depends on whether we're extending or compressing
@@ -82,6 +87,7 @@ unsigned ParticleRod::addContact(ParticleContact *contact,
 
     return 1;
 }
+// < RodCG
 
 real ParticleConstraint::currentLength() const
 {

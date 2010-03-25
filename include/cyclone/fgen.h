@@ -24,6 +24,7 @@
 
 namespace cyclone {
 
+    // > ForceGenInterface
     /**
      * A force generator can be asked to add a force to one or more
      * bodies.
@@ -39,6 +40,8 @@ namespace cyclone {
         virtual void updateForce(RigidBody *body, real duration) = 0;
     };
 
+    // < ForceGenInterface
+    // > GravityFG
     /**
      * A force generator that applies a gravitational force. One instance
      * can be used for multiple rigid bodies.
@@ -57,6 +60,8 @@ namespace cyclone {
         virtual void updateForce(RigidBody *body, real duration);
     };
 
+    // < GravityFG
+    // > SpringFG
     /**
      * A force generator that applies a Spring force.
      */
@@ -95,16 +100,24 @@ namespace cyclone {
         /** Applies the spring force to the given rigid body. */
         virtual void updateForce(RigidBody *body, real duration);
     };
+    // < SpringFG
 
+    // > ExplosionFGIntro
     /**
      * A force generator showing a three component explosion effect.
      * This force generator is intended to represent a single
      * explosion effect for multiple rigid bodies. The force generator
      * can also act as a particle force generator.
      */
+    // > ExplosionFG
     class Explosion : public ForceGenerator,
                       public ParticleForceGenerator
     {
+        // < ExplosionFGIntro
+        // ... Other Explision code as before ...
+
+        // < ExplosionFG
+        
         /**
          * Tracks how long the explosion has been in operation, used
          * for time-sensitive effects.
@@ -116,13 +129,11 @@ namespace cyclone {
         // there are so many and providing a suitable constructor
         // would be cumbersome:
 
+        // > ExplosionFGImplosion
         /**
          * The location of the detonation of the weapon.
          */
         Vector3 detonation;
-
-        // ... Other Explosion code as before ...
-
 
         /**
          * The radius up to which objects implode in the first stage
@@ -150,7 +161,9 @@ namespace cyclone {
          * the concussion wave kicks in.
          */
         real implosionForce;
+        // < ExplosionFGImplosion
 
+        // > ExplosionFGConcussion
         /**
          * The speed that the shock wave is traveling, this is related
          * to the thickness below in the relationship:
@@ -181,7 +194,9 @@ namespace cyclone {
           * As the wave nears this, the forces it applies reduces.
           */
          real concussionDuration;
+         // < ExplosionFGConcussion
 
+         // > ExplosionFGConvection
          /**
           * This is the peak force for stationary objects in
           * the centre of the convection chimney. Force calculations
@@ -206,6 +221,7 @@ namespace cyclone {
           * itself.
           */
          real convectionDuration;
+         // < ExplosionFGConvection
 
     public:
         /**
@@ -213,20 +229,17 @@ namespace cyclone {
          */
         Explosion();
 
+        // > ExplosionFGIntro
         /**
          * Calculates and applies the force that the explosion
          * has on the given rigid body.
          */
         virtual void updateForce(RigidBody * body, real duration);
-
-        /**
-         * Calculates and applies the force that the explosion has
-         * on the given particle.
-         */
-        virtual void updateForce(Particle *particle, real duration) = 0;
-
+        // > ExplosionFG
     };
+    // < ExplosionFG;ExplosionFGIntro
 
+    // > AeroFG
     /**
      * A force generator that applies an aerodynamic force.
      */
@@ -275,7 +288,9 @@ namespace cyclone {
         void updateForceFromTensor(RigidBody *body, real duration,
                                    const Matrix3 &tensor);
     };
+    // < AeroFG
 
+    // > AeroControlFG
     /**
     * A force generator with a control aerodynamic surface. This
     * requires three inertia tensors, for the two extremes and
@@ -336,7 +351,9 @@ namespace cyclone {
          */
         virtual void updateForce(RigidBody *body, real duration);
     };
+    // < AeroControlFG
 
+    // > AngledAeroFG
     /**
      * A force generator with an aerodynamic surface that can be
      * re-oriented relative to its rigid body. This derives the
@@ -369,7 +386,9 @@ namespace cyclone {
          */
         virtual void updateForce(RigidBody *body, real duration);
     };
+    // < AngledAeroFG
 
+    // > BuoyancyFG
     /**
      * A force generator to apply a buoyant force to a rigid body.
      */
@@ -415,6 +434,7 @@ namespace cyclone {
          */
         virtual void updateForce(RigidBody *body, real duration);
     };
+    // < BuoyancyFG
 
     /**
     * Holds all the force generators and the bodies they apply to.

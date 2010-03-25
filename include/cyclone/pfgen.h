@@ -23,7 +23,7 @@
 #include <vector>
 
 namespace cyclone {
-
+    // > ParticleFGInterface
     /**
      * A force generator can be asked to add a force to one or more
      * particles.
@@ -38,7 +38,9 @@ namespace cyclone {
          */
         virtual void updateForce(Particle *particle, real duration) = 0;
     };
+    // < ParticleFGInterface
 
+    // > GravityPFG
     /**
      * A force generator that applies a gravitational force. One instance
      * can be used for multiple particles.
@@ -56,7 +58,9 @@ namespace cyclone {
         /** Applies the gravitational force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < GravityPFG
 
+    // > DragPFG
     /**
      * A force generator that applies a drag force. One instance
      * can be used for multiple particles.
@@ -77,7 +81,9 @@ namespace cyclone {
         /** Applies the drag force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < DragPFG
 
+    // > ASpringPFG
     /**
      * A force generator that applies a Spring force, where
      * one end is attached to a fixed point in space.
@@ -95,13 +101,16 @@ namespace cyclone {
         real restLength;
 
     public:
+        // < ASpringPFG
         ParticleAnchoredSpring();
 
+        // > ASpringPFG
         /** Creates a new spring with the given parameters. */
         ParticleAnchoredSpring(Vector3 *anchor,
                                real springConstant,
                                real restLength);
 
+        // < ASpringPFG
         /** Retrieve the anchor point. */
         const Vector3* getAnchor() const { return anchor; }
 
@@ -110,9 +119,11 @@ namespace cyclone {
                   real springConstant,
                   real restLength);
 
+        // > ASpringPFG
         /** Applies the spring force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < ASpringPFG
 
     /**
     * A force generator that applies a bungee force, where
@@ -125,6 +136,7 @@ namespace cyclone {
         virtual void updateForce(Particle *particle, real duration);
     };
 
+    // > FakeSpringPFG
     /**
      * A force generator that fakes a stiff spring force, and where
      * one end is attached to a fixed point in space.
@@ -149,7 +161,9 @@ namespace cyclone {
         /** Applies the spring force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < FakeSpringPFG
 
+    // > SpringPFG
     /**
      * A force generator that applies a Spring force.
      */
@@ -173,7 +187,9 @@ namespace cyclone {
         /** Applies the spring force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < SpringPFG
 
+    // > BungeePFG
     /**
      * A force generator that applies a spring force only
      * when extended.
@@ -201,7 +217,9 @@ namespace cyclone {
         /** Applies the spring force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < BungeePFG
 
+    // > BuoyancyPFG
     /**
      * A force generator that applies a buoyancy force for a plane of
      * liquid parrallel to XZ plane.
@@ -240,7 +258,9 @@ namespace cyclone {
         /** Applies the buoyancy force to the given particle. */
         virtual void updateForce(Particle *particle, real duration);
     };
+    // < BuoyancyPFG
 
+    // > ParticleFGRegistry
     /**
      * Holds all the force generators and the particles they apply to.
      */
@@ -291,6 +311,7 @@ namespace cyclone {
          */
         void updateForces(real duration);
     };
+    // < ParticleFGRegistry
 }
 
 #endif // CYCLONE_PFGEN_H

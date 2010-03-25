@@ -104,8 +104,9 @@
  * classes. It is defined as a namespace to allow function and class
  * names to be simple without causing conflicts.
  */
+// > VectorIntro
 namespace cyclone {
-
+    // < VectorIntro
     /**
      * Holds the value for energy under which a body will be put to
      * sleep. This is a global value for the whole solution.  By
@@ -145,16 +146,20 @@ namespace cyclone {
      */
     real getSleepEpsilon();
 
+    // > VectorIntro
     /**
      * Holds a vector in 3 dimensions. Four data members are allocated
      * to ensure alignment in an array.
+     // < VectorIntro
      *
      * @note This class contains a lot of inline methods for basic
      * mathematics. The implementations are included in the header
      * file.
      */
+    // > VectorIntro; Vector
     class Vector3
     {
+        // < Vector
     public:
          /** Holds the value along the x axis. */
         real x;
@@ -179,6 +184,7 @@ namespace cyclone {
          */
         Vector3(const real x, const real y, const real z)
             : x(x), y(y), z(z) {}
+        // < VectorIntro
 
         const static Vector3 GRAVITY;
         const static Vector3 HIGH_GRAVITY;
@@ -189,8 +195,9 @@ namespace cyclone {
         const static Vector3 Y;
         const static Vector3 Z;
 
+        // > Vector
         // ... Other Vector3 code as before ...
-
+        // < Vector
 
         real operator[](unsigned i) const
         {
@@ -206,6 +213,7 @@ namespace cyclone {
             return z;
         }
 
+        // > VectorAddition
         /** Adds the given vector to this. */
         void operator+=(const Vector3& v)
         {
@@ -214,14 +222,14 @@ namespace cyclone {
             z += v.z;
         }
 
-        /**
-         * Returns the value of the given vector added to this.
-         */
+        /** Returns the value of the given vector added to this. */
         Vector3 operator+(const Vector3& v) const
         {
             return Vector3(x+v.x, y+v.y, z+v.z);
         }
+        // < VectorAddition
 
+        // > VectorSubtraction
         /** Subtracts the given vector from this. */
         void operator-=(const Vector3& v)
         {
@@ -237,7 +245,9 @@ namespace cyclone {
         {
             return Vector3(x-v.x, y-v.y, z-v.z);
         }
+        // < VectorSubtraction
 
+        // > ScalarMultiply
         /** Multiplies this vector by the given scalar. */
         void operator*=(const real value)
         {
@@ -251,7 +261,9 @@ namespace cyclone {
         {
             return Vector3(x*value, y*value, z*value);
         }
+        // < ScalarMultiply
 
+        // > ComponentProduct
         /**
          * Calculates and returns a component-wise product of this
          * vector with the given vector.
@@ -271,7 +283,9 @@ namespace cyclone {
             y *= vector.y;
             z *= vector.z;
         }
+        // < ComponentProduct
 
+        // > VectorProduct
         /**
          * Calculates and returns the vector product of this vector
          * with the given vector.
@@ -302,7 +316,9 @@ namespace cyclone {
                            z*vector.x-x*vector.z,
                            x*vector.y-y*vector.x);
         }
+        // < VectorProduct
 
+        // > ScalarProduct
         /**
          * Calculates and returns the scalar product of this vector
          * with the given vector.
@@ -320,7 +336,9 @@ namespace cyclone {
         {
             return x*vector.x + y*vector.y + z*vector.z;
         }
+        // < ScalarProduct
 
+        // > ScaledVectorAddition
         /**
          * Adds the given vector to this, scaled by the given amount.
          */
@@ -330,7 +348,9 @@ namespace cyclone {
             y += vector.y * scale;
             z += vector.z * scale;
         }
+        // < ScaledVectorAddition
 
+        // > Normalise
         /** Gets the magnitude of this vector. */
         real magnitude() const
         {
@@ -342,6 +362,7 @@ namespace cyclone {
         {
             return x*x+y*y+z*z;
         }
+        // < Normalise
 
         /** Limits the size of the vector to the given maximum. */
         void trim(real size)
@@ -355,6 +376,7 @@ namespace cyclone {
             }
         }
 
+        // > Normalise
         /** Turns a non-zero vector into a vector of unit length. */
         void normalise()
         {
@@ -364,6 +386,7 @@ namespace cyclone {
                 (*this) *= ((real)1)/l;
             }
         }
+        // < Normalise
 
         /** Returns the normalised version of a vector. */
         Vector3 unit() const
@@ -441,6 +464,7 @@ namespace cyclone {
             x = y = z = 0;
         }
 
+        // > VectorIntro
         /** Flips all the components of the vector. */
         void invert()
         {
@@ -448,28 +472,33 @@ namespace cyclone {
             y = -y;
             x = -z;
         }
-
+        // > Vector
     };
+    // < VectorIntro; Vector
 
+    // > QuaternionIntro
     /**
      * Holds a three degree of freedom orientation.
+     // < QuaternionIntro
      *
-     * Quaternions have
-     * several mathematical properties that make them useful for
-     * representing orientations, but require four items of data to
-     * hold the three degrees of freedom. These four items of data can
-     * be viewed as the coefficients of a complex number with three
-     * imaginary parts. The mathematics of the quaternion is then
-     * defined and is roughly correspondent to the math of 3D
+     * Quaternions have several mathematical properties that make them
+     * useful for representing orientations, but require four items of
+     * data to hold the three degrees of freedom. These four items of
+     * data can be viewed as the coefficients of a complex number with
+     * three imaginary parts. The mathematics of the quaternion is
+     * then defined and is roughly correspondent to the math of 3D
      * rotations. A quaternion is only a valid rotation if it is
      * normalised: i.e. it has a length of 1.
      *
      * @note Angular velocity and acceleration can be correctly
      * represented as vectors. Quaternions are only needed for
      * orientation.
+     // > QuaternionIntro
      */
+    // > Quaternion
     class Quaternion
     {
+        // < Quaternion
     public:
         union {
             struct {
@@ -502,9 +531,12 @@ namespace cyclone {
              */
             real data[4];
         };
+        // < QuaternionIntro
 
-        // ... other Quaternion code as before ...
+        // > Quaternion
+        // ... Other Quaternion code as before ...
 
+        // < Quaternion
         /**
          * The default constructor creates a quaternion representing
          * a zero rotation.
@@ -540,6 +572,7 @@ namespace cyclone {
         {
         }
 
+        // > QuatNormalise
         /**
          * Normalises the quaternion to unit length, making it a valid
          * orientation quaternion.
@@ -561,11 +594,11 @@ namespace cyclone {
             j *= d;
             k *= d;
         }
+        // < QuatNormalise
 
+        // > QuatCombine
         /**
          * Multiplies the quaternion by the given quaternion.
-         *
-         * @param multiplier The quaternion by which to multiply.
          */
         void operator *=(const Quaternion &multiplier)
         {
@@ -579,7 +612,9 @@ namespace cyclone {
             k = q.r*multiplier.k + q.k*multiplier.r +
                 q.i*multiplier.j - q.j*multiplier.i;
         }
+        // < QuatCombine
 
+        // > QuatUpdateByVel
         /**
          * Adds the given vector to this, scaled by the given amount.
          * This is used to update the orientation quaternion by a rotation
@@ -601,30 +636,40 @@ namespace cyclone {
             j += q.j * ((real)0.5);
             k += q.k * ((real)0.5);
         }
+        // < QuatUpdateByVel
 
+        // > QuatRotByVector
         void rotateByVector(const Vector3& vector)
         {
             Quaternion q(0, vector.x, vector.y, vector.z);
             (*this) *= q;
         }
+        // < QuatRotByVector
+        // > QuaternionIntro; Quaternion
     };
+    // < QuaternionIntro; Quaternion
 
+    // > Matrix4Intro
     /**
      * Holds a transform matrix, consisting of a rotation matrix and
      * a position. The matrix has 12 elements, it is assumed that the
      * remaining four are (0,0,0,1); producing a homogenous matrix.
      */
+    // > Matrix4
     class Matrix4
     {
+        // < Matrix4
     public:
         /**
          * Holds the transform matrix data in array form.
          */
         real data[12];
+        // < Matrix4Intro
 
+        // > Matrix4
         // ... Other Matrix4 code as before ...
 
-
+        // < Matrix4
         /**
          * Creates an identity matrix.
          */
@@ -645,6 +690,7 @@ namespace cyclone {
             data[10] = c;
         }
 
+        // > Matrix4MatrixMultiply
         /**
          * Returns a matrix which is this matrix multiplied by the given
          * other matrix.
@@ -652,29 +698,42 @@ namespace cyclone {
         Matrix4 operator*(const Matrix4 &o) const
         {
             Matrix4 result;
-            result.data[0] = (o.data[0]*data[0]) + (o.data[4]*data[1]) + (o.data[8]*data[2]);
-            result.data[4] = (o.data[0]*data[4]) + (o.data[4]*data[5]) + (o.data[8]*data[6]);
-            result.data[8] = (o.data[0]*data[8]) + (o.data[4]*data[9]) + (o.data[8]*data[10]);
+            result.data[0] = o.data[0]*data[0] + o.data[4]*data[1] + 
+                             o.data[8]*data[2];
+            result.data[4] = o.data[0]*data[4] + o.data[4]*data[5] + 
+                             o.data[8]*data[6];
+            result.data[8] = o.data[0]*data[8] + o.data[4]*data[9] + 
+                             o.data[8]*data[10];
 
-            result.data[1] = (o.data[1]*data[0]) + (o.data[5]*data[1]) + (o.data[9]*data[2]);
-            result.data[5] = (o.data[1]*data[4]) + (o.data[5]*data[5]) + (o.data[9]*data[6]);
-            result.data[9] = (o.data[1]*data[8]) + (o.data[5]*data[9]) + (o.data[9]*data[10]);
+            result.data[1] = o.data[1]*data[0] + o.data[5]*data[1] + 
+                             o.data[9]*data[2];
+            result.data[5] = o.data[1]*data[4] + o.data[5]*data[5] + 
+                             o.data[9]*data[6];
+            result.data[9] = o.data[1]*data[8] + o.data[5]*data[9] + 
+                             o.data[9]*data[10];
 
-            result.data[2] = (o.data[2]*data[0]) + (o.data[6]*data[1]) + (o.data[10]*data[2]);
-            result.data[6] = (o.data[2]*data[4]) + (o.data[6]*data[5]) + (o.data[10]*data[6]);
-            result.data[10] = (o.data[2]*data[8]) + (o.data[6]*data[9]) + (o.data[10]*data[10]);
+            result.data[2] = o.data[2]*data[0] + o.data[6]*data[1] + 
+                             o.data[10]*data[2];
+            result.data[6] = o.data[2]*data[4] + o.data[6]*data[5] + 
+                             o.data[10]*data[6];
+            result.data[10] = o.data[2]*data[8] + o.data[6]*data[9] + 
+                              o.data[10]*data[10];
 
-            result.data[3] = (o.data[3]*data[0]) + (o.data[7]*data[1]) + (o.data[11]*data[2]) + data[3];
-            result.data[7] = (o.data[3]*data[4]) + (o.data[7]*data[5]) + (o.data[11]*data[6]) + data[7];
-            result.data[11] = (o.data[3]*data[8]) + (o.data[7]*data[9]) + (o.data[11]*data[10]) + data[11];
+            result.data[3] = o.data[3]*data[0] + o.data[7]*data[1] + 
+                             o.data[11]*data[2] + data[3];
+            result.data[7] = o.data[3]*data[4] + o.data[7]*data[5] + 
+                             o.data[11]*data[6] + data[7];
+            result.data[11] = o.data[3]*data[8] + o.data[7]*data[9] + 
+                              o.data[11]*data[10] + data[11];
+
 
             return result;
         }
+        // < Matrix4MatrixMultiply
 
+        // > Matrix4VectorMultiply
         /**
          * Transform the given vector by this matrix.
-         *
-         * @param vector The vector to transform.
          */
         Vector3 operator*(const Vector3 &vector) const
         {
@@ -695,14 +754,14 @@ namespace cyclone {
 
         /**
          * Transform the given vector by this matrix.
-         *
-         * @param vector The vector to transform.
          */
         Vector3 transform(const Vector3 &vector) const
         {
             return (*this) * vector;
         }
+        // < Matrix4VectorMultiply
 
+        // > Matrix4Inverse
         /**
          * Returns the determinant of the matrix.
          */
@@ -710,8 +769,6 @@ namespace cyclone {
 
         /**
          * Sets the matrix to be the inverse of the given matrix.
-         *
-         * @param m The matrix to invert and use to set this.
          */
         void setInverse(const Matrix4 &m);
 
@@ -730,14 +787,18 @@ namespace cyclone {
         {
             setInverse(*this);
         }
+        // < Matrix4Inverse
 
+        // > TransformDirection
         /**
          * Transform the given direction vector by this matrix.
          *
+         // < TransformDirection
          * @note When a direction is converted between frames of
          * reference, there is no translation required.
          *
          * @param vector The vector to transform.
+         // > TransformDirection
          */
         Vector3 transformDirection(const Vector3 &vector) const
         {
@@ -759,6 +820,7 @@ namespace cyclone {
         /**
          * Transform the given direction vector by the
          * transformational inverse of this matrix.
+         // < TransformDirection
          *
          * @note This function relies on the fact that the inverse of
          * a pure rotation matrix is its transpose. It separates the
@@ -771,6 +833,7 @@ namespace cyclone {
          * reference, there is no translation required.
          *
          * @param vector The vector to transform.
+         // > TransformDirection
          */
         Vector3 transformInverseDirection(const Vector3 &vector) const
         {
@@ -788,10 +851,13 @@ namespace cyclone {
                 vector.z * data[10]
             );
         }
+        // < TransformDirection
 
+        // > TransformInverse
         /**
          * Transform the given vector by the transformational inverse
          * of this matrix.
+         // < TransformInverse
          *
          * @note This function relies on the fact that the inverse of
          * a pure rotation matrix is its transpose. It separates the
@@ -801,6 +867,7 @@ namespace cyclone {
          * will not give correct results.
          *
          * @param vector The vector to transform.
+         // > TransformInverse
          */
         Vector3 transformInverse(const Vector3 &vector) const
         {
@@ -822,6 +889,7 @@ namespace cyclone {
                 tmp.z * data[10]
             );
         }
+        // < TransformInverse
 
         /**
          * Gets a vector representing one axis (i.e. one column) in the matrix.
@@ -836,6 +904,7 @@ namespace cyclone {
             return Vector3(data[i], data[i+4], data[i+8]);
         }
 
+        // > OrientationAndPosToMatrix4
         /**
          * Sets this matrix to be the rotation matrix corresponding to
          * the given quaternion.
@@ -857,6 +926,7 @@ namespace cyclone {
             data[10] = 1 - (2*q.i*q.i  + 2*q.j*q.j);
             data[11] = pos.z;
         }
+        // < OrientationAndPosToMatrix4
 
         /**
          * Fills the given array with this transform matrix, so it is
@@ -886,25 +956,31 @@ namespace cyclone {
             array[14] = (float)data[11];
             array[15] = (float)1;
         }
+        // > Matrix4Intro; Matrix4
     };
+    // < Matrix4Intro; Matrix4
 
+    // > Matrix3Intro
     /**
-     * Holds an inertia tensor, consisting of a 3x3 row-major matrix.
-     * This matrix is not padding to produce an aligned structure, since
-     * it is most commonly used with a mass (single real) and two
-     * damping coefficients to make the 12-element characteristics array
-     * of a rigid body.
+     * Holds a 3x3 row-major matrix representing a transformation in
+     * 3D space that does not include a translational component. This
+     * matrix is not padded to produce an aligned structure.
      */
+    // > Matrix3
     class Matrix3
     {
+        // < Matrix3
     public:
         /**
          * Holds the tensor matrix data in array form.
          */
         real data[9];
+        // < Matrix3Intro
 
+        // > Matrix3
         // ... Other Matrix3 code as before ...
 
+        // < Matrix3
         /**
          * Creates a new matrix.
          */
@@ -971,6 +1047,7 @@ namespace cyclone {
                 0.3f*mass*(squares.x + squares.y));
         }
 
+        // > Matrix3SetSkewSymmetric
         /**
          * Sets the matrix to be a skew symmetric matrix based on
          * the given vector. The skew symmetric matrix is the equivalent
@@ -987,7 +1064,9 @@ namespace cyclone {
             data[6] = -vector.y;
             data[7] = vector.x;
         }
+        // < Matrix3SetSkewSymmetric
 
+        // > Matrix3SetComponents
         /**
          * Sets the matrix values from the given three vector components.
          * These are arranged as the three columns of the vector.
@@ -1004,13 +1083,12 @@ namespace cyclone {
             data[6] = compOne.z;
             data[7] = compTwo.z;
             data[8] = compThree.z;
-
         }
+        // < Matrix3SetComponents
 
+        // > Matrix3VectorMultiply
         /**
          * Transform the given vector by this matrix.
-         *
-         * @param vector The vector to transform.
          */
         Vector3 operator*(const Vector3 &vector) const
         {
@@ -1023,13 +1101,12 @@ namespace cyclone {
 
         /**
          * Transform the given vector by this matrix.
-         *
-         * @param vector The vector to transform.
          */
         Vector3 transform(const Vector3 &vector) const
         {
             return (*this) * vector;
         }
+        // < Matrix3VectorMultiply
 
         /**
          * Transform the given vector by the transpose of this matrix.
@@ -1067,37 +1144,36 @@ namespace cyclone {
             return Vector3(data[i], data[i+3], data[i+6]);
         }
 
+        // > Matrix3Inverse
         /**
          * Sets the matrix to be the inverse of the given matrix.
-         *
-         * @param m The matrix to invert and use to set this.
          */
         void setInverse(const Matrix3 &m)
         {
-            real t4 = m.data[0]*m.data[4];
-            real t6 = m.data[0]*m.data[5];
-            real t8 = m.data[1]*m.data[3];
-            real t10 = m.data[2]*m.data[3];
-            real t12 = m.data[1]*m.data[6];
-            real t14 = m.data[2]*m.data[6];
+            real t1 = m.data[0]*m.data[4];
+            real t2 = m.data[0]*m.data[5];
+            real t3 = m.data[1]*m.data[3];
+            real t4 = m.data[2]*m.data[3];
+            real t5 = m.data[1]*m.data[6];
+            real t6 = m.data[2]*m.data[6];
 
             // Calculate the determinant
-            real t16 = (t4*m.data[8] - t6*m.data[7] - t8*m.data[8]+
-                        t10*m.data[7] + t12*m.data[5] - t14*m.data[4]);
+            real det = (t1*m.data[8] - t2*m.data[7] - t3*m.data[8]+
+                        t4*m.data[7] + t5*m.data[5] - t6*m.data[4]);
 
             // Make sure the determinant is non-zero.
-            if (t16 == (real)0.0f) return;
-            real t17 = 1/t16;
+            if (det == (real)0.0f) return;
+            real invd = (real)1.0f/det;
 
-            data[0] = (m.data[4]*m.data[8]-m.data[5]*m.data[7])*t17;
-            data[1] = -(m.data[1]*m.data[8]-m.data[2]*m.data[7])*t17;
-            data[2] = (m.data[1]*m.data[5]-m.data[2]*m.data[4])*t17;
-            data[3] = -(m.data[3]*m.data[8]-m.data[5]*m.data[6])*t17;
-            data[4] = (m.data[0]*m.data[8]-t14)*t17;
-            data[5] = -(t6-t10)*t17;
-            data[6] = (m.data[3]*m.data[7]-m.data[4]*m.data[6])*t17;
-            data[7] = -(m.data[0]*m.data[7]-t12)*t17;
-            data[8] = (t4-t8)*t17;
+            data[0] = (m.data[4]*m.data[8]-m.data[5]*m.data[7])*invd;
+            data[1] = -(m.data[1]*m.data[8]-m.data[2]*m.data[7])*invd;
+            data[2] = (m.data[1]*m.data[5]-m.data[2]*m.data[4])*invd;
+            data[3] = -(m.data[3]*m.data[8]-m.data[5]*m.data[6])*invd;
+            data[4] = (m.data[0]*m.data[8]-t6)*invd;
+            data[5] = -(t2-t4)*invd;
+            data[6] = (m.data[3]*m.data[7]-m.data[4]*m.data[6])*invd;
+            data[7] = -(m.data[0]*m.data[7]-t5)*invd;
+            data[8] = (t1-t3)*invd;
         }
 
         /** Returns a new matrix containing the inverse of this matrix. */
@@ -1115,7 +1191,9 @@ namespace cyclone {
         {
             setInverse(*this);
         }
+        // < Matrix3Inverse
 
+        // > Matrix3Transpose
         /**
          * Sets the matrix to be the transpose of the given matrix.
          *
@@ -1141,7 +1219,9 @@ namespace cyclone {
             result.setTranspose(*this);
             return result;
         }
+        // < Matrix3Transpose
 
+        // > Matrix3MatrixMultiply
         /**
          * Returns a matrix which is this matrix multiplied by the given
          * other matrix.
@@ -1193,6 +1273,7 @@ namespace cyclone {
             data[7] = t2;
             data[8] = t3;
         }
+        // < Matrix3MatrixMultiply
 
         /**
          * Multiplies this matrix in place by the given scalar.
@@ -1215,6 +1296,7 @@ namespace cyclone {
             data[6] += o.data[6]; data[7] += o.data[7]; data[8] += o.data[8];
         }
 
+        // > OrientationToMatrix3
         /**
          * Sets this matrix to be the rotation matrix corresponding to
          * the given quaternion.
@@ -1231,12 +1313,19 @@ namespace cyclone {
             data[7] = 2*q.j*q.k - 2*q.i*q.r;
             data[8] = 1 - (2*q.i*q.i  + 2*q.j*q.j);
         }
+        // < OrientationToMatrix3
 
+        // > Matrix3LinearInterp
         /**
          * Interpolates a couple of matrices.
          */
-        static Matrix3 linearInterpolate(const Matrix3& a, const Matrix3& b, real prop);
+        static Matrix3 linearInterpolate(const Matrix3& a, 
+                                         const Matrix3& b, 
+                                         real prop);
+        // < Matrix3LinearInterp
+        // > Matrix3Intro; Matrix3
     };
+    // < Matrix3Intro; Matrix3
 
 }
 

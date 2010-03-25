@@ -32,6 +32,7 @@ static inline void _checkInverseInertiaTensor(const Matrix3 &iitWorld)
     // TODO: Perform a validity check in an assert.
 }
 
+// > BodyDerivedTransformIT
 /**
  * Internal function to do an intertia tensor transform by a quaternion.
  * Note that the implementation of this function was created by an
@@ -99,6 +100,8 @@ static inline void _transformInertiaTensor(Matrix3 &iitWorld,
         t62*rotmat.data[10];
 }
 
+// < BodyDerivedTransformIT
+// > BodyDerivedTransform
 /**
  * Inline function that creates a transform matrix from a
  * position and orientation.
@@ -132,11 +135,15 @@ static inline void _calculateTransformMatrix(Matrix4 &transformMatrix,
     transformMatrix.data[11] = position.z;
 }
 
+// < BodyDerivedTransform
+
 /*
  * --------------------------------------------------------------------------
  * FUNCTIONS DECLARED IN HEADER:
  * --------------------------------------------------------------------------
  */
+
+// > BodyDerivedBase
 void RigidBody::calculateDerivedData()
 {
     orientation.normalise();
@@ -144,21 +151,30 @@ void RigidBody::calculateDerivedData()
     // Calculate the transform matrix for the body.
     _calculateTransformMatrix(transformMatrix, position, orientation);
 
+    // < BodyDerivedBase
+    // > BodyDerivedTransformIT
     // Calculate the inertiaTensor in world space.
     _transformInertiaTensor(inverseInertiaTensorWorld,
         orientation,
         inverseInertiaTensor,
         transformMatrix);
-
+    // < BodyDerivedTransformIT
+    // > BodyDerivedBase
 }
+// < BodyDerivedBase
 
+// > BodyIntegrateBase
 void RigidBody::integrate(real duration)
 {
+    // < BodyIntegrateBase
     if (!isAwake) return;
 
+    // > BodyIntegrate10
+    // > LastUpdateAcceleration
     // Calculate linear acceleration from force inputs.
     lastFrameAcceleration = acceleration;
     lastFrameAcceleration.addScaledVector(forceAccum, inverseMass);
+    // < LastUpdateAcceleration
 
     // Calculate angular acceleration from torque inputs.
     Vector3 angularAcceleration =
@@ -186,8 +202,11 @@ void RigidBody::integrate(real duration)
     // position and orientation
     calculateDerivedData();
 
+    // > ClearAccumulators
     // Clear accumulators.
     clearAccumulators();
+    // < ClearAccumulators
+    // < BodyIntegrate10
 
     // Update the kinetic energy store, and possibly put the body to
     // sleep.
@@ -201,7 +220,9 @@ void RigidBody::integrate(real duration)
         if (motion < sleepEpsilon) setAwake(false);
         else if (motion > 10 * sleepEpsilon) motion = 10 * sleepEpsilon;
     }
+    // > BodyIntegrateBase
 }
+// < BodyIntegrateBase
 
 void RigidBody::setMass(const real mass)
 {
@@ -233,11 +254,15 @@ bool RigidBody::hasFiniteMass() const
     return inverseMass >= 0.0f;
 }
 
+// > SetInertiaTensor
 void RigidBody::setInertiaTensor(const Matrix3 &inertiaTensor)
 {
     inverseInertiaTensor.setInverse(inertiaTensor);
+    // < SetInertiaTensor
     _checkInverseInertiaTensor(inverseInertiaTensor);
+    // > SetInertiaTensor
 }
+// < SetInertiaTensor
 
 void RigidBody::getInertiaTensor(Matrix3 *inertiaTensor) const
 {
@@ -500,6 +525,7 @@ void RigidBody::addRotation(const Vector3 &deltaRotation)
     rotation += deltaRotation;
 }
 
+// > SetAwake
 void RigidBody::setAwake(const bool awake)
 {
     if (awake) {
@@ -513,6 +539,7 @@ void RigidBody::setAwake(const bool awake)
         rotation.clear();
     }
 }
+// < SetAwake
 
 void RigidBody::setCanSleep(const bool canSleep)
 {
@@ -532,18 +559,23 @@ Vector3 RigidBody::getLastFrameAcceleration() const
     return lastFrameAcceleration;
 }
 
+// > ClearAccumulators
 void RigidBody::clearAccumulators()
 {
     forceAccum.clear();
     torqueAccum.clear();
 }
+// < ClearAccumulators
 
+// > AddForceAtCenter
 void RigidBody::addForce(const Vector3 &force)
 {
     forceAccum += force;
     isAwake = true;
 }
+// < AddForceAtCenter
 
+// > AddForceBody
 void RigidBody::addForceAtBodyPoint(const Vector3 &force,
                                     const Vector3 &point)
 {
@@ -566,6 +598,7 @@ void RigidBody::addForceAtPoint(const Vector3 &force,
 
     isAwake = true;
 }
+// < AddForceBody
 
 void RigidBody::addTorque(const Vector3 &torque)
 {

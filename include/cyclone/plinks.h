@@ -23,6 +23,7 @@
 
 namespace cyclone {
 
+    // > CableCG
     /**
      * Links connect two particles together, generating a contact if
      * they violate the constraints of their link. It is used as a
@@ -85,7 +86,9 @@ namespace cyclone {
         virtual unsigned addContact(ParticleContact *contact,
                                     unsigned limit) const;
     };
+    // < CableCG
 
+    // > RodCG
     /**
      * Rods link a pair of particles, generating a contact if they
      * stray too far apart or too close.
@@ -106,6 +109,7 @@ namespace cyclone {
         virtual unsigned addContact(ParticleContact *contact,
                                      unsigned limit) const;
     };
+    // < RodCG
 
     /**
     * Constraints are just like links, except they connect a particle to

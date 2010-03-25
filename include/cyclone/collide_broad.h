@@ -25,6 +25,7 @@
 
 namespace cyclone {
 
+    // > SphereBVH
     /**
      * Represents a bounding sphere that can be tested for overlap.
      */
@@ -51,6 +52,7 @@ namespace cyclone {
          */
         bool overlaps(const BoundingSphere *other) const;
 
+        // < SphereBVH
         /**
          * Reports how much this bounding sphere would have to grow
          * by to incorporate the given bounding sphere. Note that this
@@ -70,8 +72,11 @@ namespace cyclone {
         {
             return ((real)1.333333) * R_PI * radius * radius * radius;
         }
+        // > SphereBVH
     };
+    // < SphereBVH
 
+    // > QueryBVH
     /**
      * Stores a potential contact to check later.
      */
@@ -84,14 +89,18 @@ namespace cyclone {
     };
 
     /**
-     * A base class for nodes in a bounding volume hierarchy.
-     *
-     * This class uses a binary tree to store the bounding
-     * volumes.
+     * A template class for nodes in a bounding volume hierarchy. This
+     * class uses a binary tree to store the bounding volumes.
      */
+    // > BVH
     template<class BoundingVolumeClass>
     class BVHNode
     {
+        // < QueryBVH
+        // ... Other BVHNode code as before ...
+
+        // < BVH
+        // > QueryBVH
     public:
         /**
          * Holds the child nodes of this node.
@@ -114,12 +123,13 @@ namespace cyclone {
          */
         RigidBody * body;
 
-        // ... other BVHNode code as before ...
-
+        // < QueryBVH
+        // > BVHParent
         /**
          * Holds the node immediately above us in the tree.
          */
         BVHNode * parent;
+        // < BVHParent
 
         /**
          * Creates a new node in the hierarchy with the given parameters.
@@ -131,6 +141,7 @@ namespace cyclone {
             children[0] = children[1] = NULL;
         }
 
+        // > QueryBVH
         /**
          * Checks if this node is at the bottom of the hierarchy.
          */
@@ -147,26 +158,30 @@ namespace cyclone {
          */
         unsigned getPotentialContacts(PotentialContact* contacts,
                                       unsigned limit) const;
-
+        // < QueryBVH
+        
+        // > BVHInsert
         /**
          * Inserts the given rigid body, with the given bounding volume,
          * into the hierarchy. This may involve the creation of
          * further bounding volume nodes.
          */
         void insert(RigidBody* body, const BoundingVolumeClass &volume);
+        // < BVHInsert
 
+        // > BVHRemove
         /**
-         * Deltes this node, removing it first from the hierarchy, along
-         * with its associated
-         * rigid body and child nodes. This method deletes the node
-         * and all its children (but obviously not the rigid bodies). This
-         * also has the effect of deleting the sibling of this node, and
-         * changing the parent node so that it contains the data currently
-         * in that sibling. Finally it forces the hierarchy above the
-         * current node to reconsider its bounding volume.
+         * Deltes this node, removing it first from the hierarchy,
+         * along with its associated rigid body and child nodes. This
+         * method deletes the node and all its children (but obviously
+         * not the rigid bodies). This also has the effect of deleting
+         * the sibling of this node, and changing the parent node so
+         * that it contains the data currently in that
+         * sibling. Finally it forces the hierarchy above the current
+         * node to reconsider its bounding volume.
          */
         ~BVHNode();
-
+        // < BVHRemove
     protected:
 
         /**
@@ -192,8 +207,10 @@ namespace cyclone {
          * based on the bounding volumes of its children.
          */
         void recalculateBoundingVolume(bool recurse = true);
+        // > QueryBVH;BVH
     };
 
+    // < BVH
     // Note that, because we're dealing with a template here, we
     // need to have the implementations accessible to anything that
     // imports this header.
@@ -206,6 +223,8 @@ namespace cyclone {
         return volume->overlaps(other->volume);
     }
 
+    // < QueryBVH
+    // > BVHInsert
     template<class BoundingVolumeClass>
     void BVHNode<BoundingVolumeClass>::insert(
         RigidBody* newBody, const BoundingVolumeClass &newVolume
@@ -248,7 +267,9 @@ namespace cyclone {
             }
         }
     }
+    // < BVHInsert
 
+    // > BVHRemove
     template<class BoundingVolumeClass>
     BVHNode<BoundingVolumeClass>::~BVHNode()
     {
@@ -291,6 +312,7 @@ namespace cyclone {
             delete children[0];
         }
     }
+    // < BVHRemove
 
     template<class BoundingVolumeClass>
         void BVHNode<BoundingVolumeClass>::recalculateBoundingVolume(
@@ -309,6 +331,7 @@ namespace cyclone {
         if (parent) parent->recalculateBoundingVolume(true);
     }
 
+    // > QueryBVH
     template<class BoundingVolumeClass>
     unsigned BVHNode<BoundingVolumeClass>::getPotentialContacts(
         PotentialContact* contacts, unsigned limit
@@ -381,6 +404,7 @@ namespace cyclone {
             }
         }
     }
+    // < QueryBVH
 
 } // namespace cyclone
 

@@ -19,13 +19,16 @@
 
 static cyclone::Random random;
 
+// > FireworkIntro
 /**
  * Fireworks are particles, with additional data for rendering and
  * evolution.
  */
+// > FireworkUpdate
 class Firework : public cyclone::Particle
 {
 public:
+    // < FireworkUpdate
     /** Fireworks have an integer type, used for firework rules. */
     unsigned type;
 
@@ -35,7 +38,9 @@ public:
      * Think of age as fuse-left.
      */
     cyclone::real age;
+    // < FireworkIntro
 
+    // > FireworkUpdate
     /**
      * Updates the firework by the given duration of time. Returns true
      * if the firework has reached the end of its life and needs to be
@@ -50,14 +55,19 @@ public:
         age -= duration;
         return (age < 0) || (position.y < 0);
     }
+    // > FireworkIntro
 };
+// < FireworkIntro; FireworkUpdate
 
+// > FireworkRuleIntro
 /**
  * Firework rules control the length of a firework's fuse and the
  * particles it should evolve into.
  */
+// > FireworkCreate
 struct FireworkRule
 {
+    // < FireworkCreate
     /** The type of firework that is managed by this rule. */
     unsigned type;
 
@@ -101,6 +111,7 @@ struct FireworkRule
 
     /** The set of payloads. */
     Payload *payloads;
+    // < FireworkRuleIntro
 
     FireworkRule()
     :
@@ -123,9 +134,12 @@ struct FireworkRule
     /**
      * Set all the rule parameters in one go.
      */
-    void setParameters(unsigned type, cyclone::real minAge, cyclone::real maxAge,
-        const cyclone::Vector3 &minVelocity, const cyclone::Vector3 &maxVelocity,
-        cyclone::real damping)
+    void setParameters(unsigned type, 
+                       cyclone::real minAge, 
+                       cyclone::real maxAge,
+                       const cyclone::Vector3 &minVelocity, 
+                       const cyclone::Vector3 &maxVelocity,
+                       cyclone::real damping)
     {
         FireworkRule::type = type;
         FireworkRule::minAge = minAge;
@@ -135,6 +149,7 @@ struct FireworkRule
         FireworkRule::damping = damping;
     }
 
+    // > FireworkCreate
     /**
      * Creates a new firework of this type and writes it into the given
      * instance. The optional parent firework is used to base position
@@ -173,7 +188,9 @@ struct FireworkRule
 
         firework->clearAccumulator();
     }
+// > FireworkRuleIntro
 };
+// < FireworkRuleIntro; FireworkCreate
 
 /**
  * The main demo class definition.
@@ -248,6 +265,7 @@ FireworksDemo::~FireworksDemo()
 {
 }
 
+// > FireworkRuleDef
 void FireworksDemo::initFireworkRules()
 {
     // Go through the firework types and create their rules.
@@ -280,6 +298,7 @@ void FireworksDemo::initFireworkRules()
         cyclone::Vector3(5, 5, 5), // max velocity
         0.1 // damping
         );
+    // < FireworkRuleDef
 
     rules[3].init(0);
     rules[3].setParameters(
@@ -336,8 +355,10 @@ void FireworksDemo::initFireworkRules()
         cyclone::Vector3(15, 15, 5), // max velocity
         0.95 // damping
         );
+    // > FireworkRuleDef
     // ... and so on for other firework types ...
 }
+// < FireworkRuleDef
 
 void FireworksDemo::initGraphics()
 {
@@ -353,6 +374,8 @@ const char* FireworksDemo::getTitle()
     return "Cyclone > Fireworks Demo";
 }
 
+// > FireworkCreate
+
 void FireworksDemo::create(unsigned type, const Firework *parent)
 {
     // Get the rule needed to create this firework
@@ -364,6 +387,7 @@ void FireworksDemo::create(unsigned type, const Firework *parent)
     // Increment the index for the next firework
     nextFirework = (nextFirework + 1) % maxFireworks;
 }
+// < FireworkCreate
 
 void FireworksDemo::create(unsigned type, unsigned number, const Firework *parent)
 {
@@ -379,6 +403,7 @@ void FireworksDemo::update()
     float duration = (float)TimingData::get().lastFrameDuration * 0.001f;
     if (duration <= 0.0f) return;
 
+    // > FireworksUpdate
     for (Firework *firework = fireworks;
          firework < fireworks+maxFireworks;
          firework++)
@@ -407,6 +432,7 @@ void FireworksDemo::update()
             }
         }
     }
+    // < FireworksUpdate
 
     Application::update();
 }

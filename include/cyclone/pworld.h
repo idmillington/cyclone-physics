@@ -24,21 +24,33 @@
 
 namespace cyclone {
 
+    // > ParticleWorldIntro
     /**
      * Keeps track of a set of particles, and provides the means to
      * update them all.
      */
+    // > ParticleWorld
     class ParticleWorld
     {
+        // < ParticleWorldIntro
+        // ... Other ParticleWorld code as before ...
+
+        // < ParticleWorld
+        // > ParticleWorldIntro
     public:
         typedef std::vector<Particle*> Particles;
+        // < ParticleWorldIntro
+        // > ParticleWorldRun
         typedef std::vector<ParticleContactGenerator*> ContactGenerators;
+        // < ParticleWorldRun
+        // > ParticleWorldIntro
 
     protected:
         /**
          * Holds the particles
          */
         Particles particles;
+        // < ParticleWorldIntro
 
         /**
          * True if the world should calculate the number of iterations
@@ -46,6 +58,7 @@ namespace cyclone {
          */
         bool calculateIterations;
 
+        // > ParticleWorldRun
         /**
          * Holds the force generators for the particles in this world.
          */
@@ -55,7 +68,7 @@ namespace cyclone {
          * Holds the resolver for contacts.
          */
         ParticleContactResolver resolver;
-
+        
         /**
          * Contact generators.
          */
@@ -72,8 +85,9 @@ namespace cyclone {
          */
         unsigned maxContacts;
 
+        // < ParticleWorldRun
+        // > ParticleWorldIntro
     public:
-
         /**
          * Creates a new particle simulator that can handle up to the
          * given number of contacts per frame. You can also optionally
@@ -82,12 +96,14 @@ namespace cyclone {
          * contacts will be used.
          */
         ParticleWorld(unsigned maxContacts, unsigned iterations=0);
+        // < ParticleWorldIntro
 
         /**
          * Deletes the simulator.
          */
         ~ParticleWorld();
 
+        // > ParticleWorldRun
         /**
          * Calls each of the registered contact generators to report
          * their contacts. Returns the number of generated contacts.
@@ -105,6 +121,8 @@ namespace cyclone {
          */
         void runPhysics(real duration);
 
+        // < ParticleWorldRun
+        // > ParticleWorldStartFrame
         /**
          * Initializes the world for a simulation frame. This clears
          * the force accumulators for particles in the world. After
@@ -112,6 +130,7 @@ namespace cyclone {
          * frame added.
          */
         void startFrame();
+        // < ParticleWorldStartFrame
 
         /**
          *  Returns the list of particles.
@@ -127,7 +146,9 @@ namespace cyclone {
          * Returns the force registry.
          */
         ParticleForceRegistry& getForceRegistry();
+        // > ParticleWorldIntro; ParticleWorld
     };
+    // < ParticleWorldIntro; ParticleWorld
 
     /**
       * A contact generator that takes an STL vector of particle pointers and

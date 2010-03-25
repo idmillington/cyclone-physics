@@ -36,6 +36,7 @@ namespace cyclone {
      */
     class ContactResolver;
 
+    // > ContactIntro
     /**
      * A contact represents two bodies in contact. Resolving a
      * contact removes their interpenetration, and applies sufficient
@@ -43,6 +44,7 @@ namespace cyclone {
      * Contacts can be used to represent positional joints, by making
      * the contact constraint keep the bodies in their correct
      * orientation.
+     // < ContactIntro
      *
      * It can be a good idea to create a contact object even when the
      * contact isn't violated. Because resolving one contact can violate
@@ -55,17 +57,22 @@ namespace cyclone {
      * The contact has no callable functions, it just holds the contact
      * details. To resolve a set of contacts, use the contact resolver
      * class.
+     // > ContactIntro
      */
+    // > Contact
     class Contact
     {
+        // < ContactIntro
         // ... Other data as before ...
 
+        // < Contact
+        // > ContactFriend
         /**
          * The contact resolver object needs access into the contacts to
          * set and effect the contact.
          */
         friend ContactResolver;
-
+        // < ContactFriend
     public:
         /**
          * Holds the bodies that are involved in the contact. The
@@ -82,7 +89,8 @@ namespace cyclone {
          * Holds the normal restitution coefficient at the contact.
          */
         real restitution;
-
+        
+        // > ContactIntro
         /**
          * Holds the position of the contact in world coordinates.
          */
@@ -99,6 +107,7 @@ namespace cyclone {
          * between the inter-penetrating points.
          */
         real penetration;
+        // < ContactIntro
 
         /**
          * Sets the data that doesn't normally depend on the position
@@ -107,8 +116,8 @@ namespace cyclone {
         void setBodyData(RigidBody* one, RigidBody *two,
                          real friction, real restitution);
 
+        // > ContactInternalData
     protected:
-
         /**
          * A transform matrix that converts co-ordinates in the contact's
          * frame of reference to world co-ordinates. The columns of this
@@ -134,7 +143,9 @@ namespace cyclone {
          * function is run.
          */
         Vector3 relativeContactPosition[2];
+        // < ContactInternalData
 
+        // > ContactCalculateInternals
     protected:
         /**
          * Calculates internal data from state data. This is called before
@@ -142,21 +153,27 @@ namespace cyclone {
          * never need to be called manually.
          */
         void calculateInternals(real duration);
+        // < ContactCalculateInternals
 
+        // > SwapBodies
         /**
-         * Reverses the contact. This involves swapping the two rigid bodies
-         * and reversing the contact normal. The internal values should then
-         * be recalculated using calculateInternals (this is not done
-         * automatically).
+         * Reverses the contact. This involves swapping the two rigid
+         * bodies and reversing the contact normal. The internal
+         * values should then be recalculated using calculateInternals
+         * (this is not done automatically as this method may be
+         * called from calculateInernals).
          */
         void swapBodies();
-
+        // < SwapBodies
+        
+        // > MatchAwakeState
         /**
          * Updates the awake state of rigid bodies that are taking
          * place in the given contact. A body will be made awake if it
          * is in contact with a body that is awake.
          */
         void matchAwakeState();
+        // < MatchAwakeState
 
         /**
          * Calculates and sets the internal value for the desired delta
@@ -164,18 +181,22 @@ namespace cyclone {
          */
         void calculateDesiredDeltaVelocity(real duration);
 
+        // > CalculateLocalVelocity
         /**
          * Calculates and returns the velocity of the contact
          * point on the given body.
          */
         Vector3 calculateLocalVelocity(unsigned bodyIndex, real duration);
+        // < CalculateLocalVelocity
 
+        // > OrthonormalBasis
         /**
          * Calculates an orthonormal basis for the contact point, based on
          * the primary friction direction (for anisotropic friction) or
          * a random orientation (for isotropic friction).
          */
         void calculateContactBasis();
+        // < OrthonormalBasis
 
         /**
          * Applies an impulse to the given body, returning the
@@ -208,6 +229,7 @@ namespace cyclone {
          */
         Vector3 calculateFrictionlessImpulse(Matrix3 *inverseInertiaTensor);
 
+        // > UpdateVelWithFriction
         /**
          * Calculates the impulse needed to resolve this contact,
          * given that the contact has a non-zero coefficient of
@@ -216,12 +238,17 @@ namespace cyclone {
          * function has access to these anyway.
          */
         Vector3 calculateFrictionImpulse(Matrix3 *inverseInertiaTensor);
+        // < UpdateVelWithFriction
+        // > ContactIntro;Contact
     };
+    // < ContactIntro;Contact
 
+    // > ContactResolverBase
     /**
      * The contact resolution routine. One resolver instance
      * can be shared for the whole simulation, as long as you need
      * roughly the same parameters each time (which is normal).
+     // < ContactResolverBase
      *
      * @section algorithm Resolution Algorithm
      *
@@ -265,9 +292,15 @@ namespace cyclone {
      * In general this resolver is not suitable for stacks of bodies,
      * but is perfect for handling impact, explosive, and flat resting
      * situations.
+     // > ContactResolverBase
      */
+    // > ContactResolver
     class ContactResolver
     {
+        // < ContactResolverBase
+        // ... Other ContactResolver code as before ...
+
+        // < ContactResolver
     protected:
         /**
          * Holds the number of iterations to perform when resolving
@@ -364,14 +397,15 @@ namespace cyclone {
         void setEpsilon(real velocityEpsilon,
                         real positionEpsilon);
 
+        // > ContactResolverBase
         /**
-         * Resolves a set of contacts for both penetration and velocity.
-         *
-         * Contacts that cannot interact with
-         * each other should be passed to separate calls to resolveContacts,
-         * as the resolution algorithm takes much longer for lots of
-         * contacts than it does for the same number of contacts in small
-         * sets.
+         * Resolves a set of contacts for both penetration and
+         * velocity. Contacts that cannot interact with each other
+         * should be passed to separate calls to resolveContacts, as
+         * the resolution algorithm takes much longer for lots of
+         * contacts than it does for the same number of contacts in
+         * small sets.
+         // <  ContactResolverBase
          *
          * @param contactArray Pointer to an array of contact objects.
          *
@@ -389,19 +423,24 @@ namespace cyclone {
          *
          * @param duration The duration of the previous integration step.
          * This is used to compensate for forces applied.
+         // > ContactResolverBase
          */
         void resolveContacts(Contact *contactArray,
             unsigned numContacts,
             real duration);
+        // < ContactResolverBase
 
     protected:
+        // > PrepareContacts
         /**
          * Sets up contacts ready for processing. This makes sure their
          * internal data is configured correctly and the correct set of bodies
          * is made alive.
          */
-        void prepareContacts(Contact *contactArray, unsigned numContacts,
-            real duration);
+        void prepareContacts(Contact *contactArray, 
+                             unsigned numContacts,
+                             real duration);
+        // < PrepareContacts
 
         /**
          * Resolves the velocity issues with the given array of constraints,
@@ -411,6 +450,7 @@ namespace cyclone {
             unsigned numContacts,
             real duration);
 
+        // > AdjustPositions
         /**
          * Resolves the positional issues with the given array of constraints,
          * using the given number of iterations.
@@ -418,7 +458,10 @@ namespace cyclone {
         void adjustPositions(Contact *contacts,
             unsigned numContacts,
             real duration);
+        // < AdjustPositions
+        // > ContactResolverBase; ContactResolver
     };
+    // < ContactResolverBase; ContactResolver
 
     /**
      * This is the basic polymorphic interface for contact generators

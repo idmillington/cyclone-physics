@@ -97,7 +97,6 @@ public:
         body->clearAccumulators();
         body->setAcceleration(0,-10.0f,0);
 
-        //body->setCanSleep(false);
         body->setAwake();
 
         body->calculateDerivedData();

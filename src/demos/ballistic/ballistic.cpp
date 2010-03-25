@@ -124,6 +124,7 @@ void BallisticDemo::fire()
     // If we didn't find a round, then exit - we can't fire.
     if (shot >= ammo+ammoRounds) return;
 
+    // > BallisticCreate
     // Set the properties of the particle
     switch(currentShotType)
     {
@@ -165,6 +166,7 @@ void BallisticDemo::fire()
 
     // Clear the force accumulators
     shot->particle.clearAccumulator();
+    // < BallisticCreate
 }
 
 void BallisticDemo::update()
@@ -173,6 +175,7 @@ void BallisticDemo::update()
     float duration = (float)TimingData::get().lastFrameDuration * 0.001f;
     if (duration <= 0.0f) return;
 
+    // > BallisticUpdate
     // Update the physics of each particle in turn
     for (AmmoRound *shot = ammo; shot < ammo+ammoRounds; shot++)
     {
@@ -192,6 +195,7 @@ void BallisticDemo::update()
             }
         }
     }
+    // < BallisticUpdate
 
     Application::update();
 }

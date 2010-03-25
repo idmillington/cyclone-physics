@@ -24,23 +24,29 @@
 
 namespace cyclone {
 
+    // > ParticleIntro
     /**
      * A particle is the simplest object that can be simulated in the
      * physics system.
+     // < ParticleIntro
      *
      * It has position data (no orientation data), along with
      * velocity. It can be integrated forward through time, and have
      * linear forces, and impulses applied to it. The particle manages
      * its state and allows access through a set of methods.
+     // > ParticleIntro
      */
+    // > Particle
     class Particle
     {
-    public:
-
+        // < ParticleIntro
         // ... Other Particle code as before ...
+        
+        // < Particle
 
-
+        // > ParticleIntro
     protected:
+        // < ParticleIntro
         /**
          * @name Characteristic Data and State
          *
@@ -75,6 +81,7 @@ namespace cyclone {
          */
         /*@{*/
 
+        // > ParticleMass
         /**
          * Holds the inverse of the mass of the particle. It
          * is more useful to hold the inverse mass because
@@ -84,14 +91,18 @@ namespace cyclone {
          * (completely unstable in numerical simulation).
          */
         real inverseMass;
+        // < ParticleMass
 
+        // > ParticleDamping
         /**
          * Holds the amount of damping applied to linear
          * motion. Damping is required to remove energy added
          * through numerical instability in the integrator.
          */
         real damping;
+        // < ParticleDamping
 
+        // > ParticleIntro
         /**
          * Holds the linear position of the particle in
          * world space.
@@ -103,6 +114,7 @@ namespace cyclone {
          * world space.
          */
         Vector3 velocity;
+        // < ParticleIntro
 
         /*@}*/
 
@@ -115,19 +127,23 @@ namespace cyclone {
 
         /*@{*/
 
+        // > ParticleAccum
         /**
          * Holds the accumulated force to be applied at the next
          * simulation iteration only. This value is zeroed at each
          * integration step.
          */
         Vector3 forceAccum;
+        // < ParticleAccum
 
+        // > ParticleIntro
         /**
          * Holds the acceleration of the particle.  This value
          * can be used to set acceleration due to gravity (its primary
          * use), or any other constant acceleration.
          */
         Vector3 acceleration;
+        // < ParticleIntro
 
         /*@}*/
 
@@ -156,6 +172,7 @@ namespace cyclone {
          */
         /*@{*/
 
+        // > ParticleIntegrate
         /**
          * Integrates the particle forward in time by the given amount.
          * This function uses a Newton-Euler integration method, which is a
@@ -163,6 +180,7 @@ namespace cyclone {
          * may be inaccurate in some cases.
          */
         void integrate(real duration);
+        // < ParticleIntegrate
 
         /*@}*/
 
@@ -352,12 +370,15 @@ namespace cyclone {
          */
         /*@{*/
 
+        // > ParticleAccum
         /**
          * Clears the forces applied to the particle. This will be
          * called automatically after each integration step.
          */
         void clearAccumulator();
+        // < ParticleAccum
 
+        // > ParticleAddForce
         /**
          * Adds the given force to the particle, to be applied at the
          * next iteration only.
@@ -365,9 +386,10 @@ namespace cyclone {
          * @param force The force to apply.
          */
         void addForce(const Vector3 &force);
-
-
+        // < ParticleAddForce
+        // > ParticleIntro; Particle
     };
+    // < ParticleIntro; Particle
 }
 
 #endif // CYCLONE_BODY_H

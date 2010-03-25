@@ -23,6 +23,7 @@
 
 namespace cyclone {
 
+    // > RagdollJoint
     /**
      * Joints link together two rigid bodies and make sure they do not
      * separate.  In a general phyiscs engine there may be many
@@ -70,7 +71,7 @@ namespace cyclone {
          */
         unsigned addContact(Contact *contact, unsigned limit) const;
     };
-
+    // < RagdollJoint
 } // namespace cyclone
 
 #endif // CYCLONE_JOINTS_H

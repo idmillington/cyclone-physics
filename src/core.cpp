@@ -42,6 +42,7 @@ real cyclone::getSleepEpsilon()
     return cyclone::sleepEpsilon;
 }
 
+// > Matrix4Inverse
 real Matrix4::getDeterminant() const
 {
     return data[8]*data[5]*data[2]+
@@ -57,19 +58,19 @@ void Matrix4::setInverse(const Matrix4 &m)
     // Make sure the determinant is non-zero.
     real det = getDeterminant();
     if (det == 0) return;
-    det = ((real)1.0)/det;
+    det = ((real)1.0f)/det;
 
     data[0] = (-m.data[9]*m.data[6]+m.data[5]*m.data[10])*det;
     data[4] = (m.data[8]*m.data[6]-m.data[4]*m.data[10])*det;
-    data[8] = (-m.data[8]*m.data[5]+m.data[4]*m.data[9]* m.data[15])*det;
+    data[8] = (-m.data[8]*m.data[5]+m.data[4]*m.data[9]*m.data[15])*det;
 
     data[1] = (m.data[9]*m.data[2]-m.data[1]*m.data[10])*det;
     data[5] = (-m.data[8]*m.data[2]+m.data[0]*m.data[10])*det;
-    data[9] = (m.data[8]*m.data[1]-m.data[0]*m.data[9]* m.data[15])*det;
+    data[9] = (m.data[8]*m.data[1]-m.data[0]*m.data[9]*m.data[15])*det;
 
-    data[2] = (-m.data[5]*m.data[2]+m.data[1]*m.data[6]* m.data[15])*det;
-    data[6] = (+m.data[4]*m.data[2]-m.data[0]*m.data[6]* m.data[15])*det;
-    data[10] = (-m.data[4]*m.data[1]+m.data[0]*m.data[5]* m.data[15])*det;
+    data[2] = (-m.data[5]*m.data[2]+m.data[1]*m.data[6]*m.data[15])*det;
+    data[6] = (+m.data[4]*m.data[2]-m.data[0]*m.data[6]*m.data[15])*det;
+    data[10] = (-m.data[4]*m.data[1]+m.data[0]*m.data[5]*m.data[15])*det;
 
     data[3] = (m.data[9]*m.data[6]*m.data[3]
                -m.data[5]*m.data[10]*m.data[3]
@@ -90,12 +91,18 @@ void Matrix4::setInverse(const Matrix4 &m)
                +m.data[4]*m.data[1]*m.data[11]
                -m.data[0]*m.data[5]*m.data[11])*det;
 }
+// < Matrix4Inverse
 
-Matrix3 Matrix3::linearInterpolate(const Matrix3& a, const Matrix3& b, real prop)
+// > Matrix3LinearInterp
+Matrix3 Matrix3::linearInterpolate(const Matrix3& a, 
+                                   const Matrix3& b, 
+                                   real prop)
 {
     Matrix3 result;
+    real omp = 1.0 - prop;
     for (unsigned i = 0; i < 9; i++) {
-        result.data[i] = a.data[i] * (1-prop) + b.data[i] * prop;
+        result.data[i] = a.data[i] * omp + b.data[i] * prop;
     }
     return result;
 }
+// < Matrix3LinearInterp

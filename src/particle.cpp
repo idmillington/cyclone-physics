@@ -9,12 +9,13 @@
  * implies agreement with all terms and conditions of the accompanying
  * software licence.
  */
-
+// > ParticleIntegrate
 #include <assert.h>
 #include <cyclone/particle.h>
 
 using namespace cyclone;
 
+// < ParticleIntegrate
 
 /*
  * --------------------------------------------------------------------------
@@ -22,9 +23,10 @@ using namespace cyclone;
  * --------------------------------------------------------------------------
  */
 
+// > ParticleIntegrate; ParticleAccum
 void Particle::integrate(real duration)
 {
-    // We don't integrate things with zero mass.
+    // We don't integrate things with infinite mass.
     if (inverseMass <= 0.0f) return;
 
     assert(duration > 0.0);
@@ -33,8 +35,13 @@ void Particle::integrate(real duration)
     position.addScaledVector(velocity, duration);
 
     // Work out the acceleration from the force
+    // < ParticleAccum
+    // (we'll add to this vector when we come to generate forces)
+    // > ParticleAccum
     Vector3 resultingAcc = acceleration;
+    // < ParticleIntegrate
     resultingAcc.addScaledVector(forceAccum, inverseMass);
+    // > ParticleIntegrate
 
     // Update linear velocity from the acceleration.
     velocity.addScaledVector(resultingAcc, duration);
@@ -45,7 +52,7 @@ void Particle::integrate(real duration)
     // Clear the forces.
     clearAccumulator();
 }
-
+// < ParticleIntegrate; ParticleAccum
 
 
 void Particle::setMass(const real mass)
@@ -154,12 +161,16 @@ Vector3 Particle::getAcceleration() const
     return acceleration;
 }
 
+// > ParticleAccum
 void Particle::clearAccumulator()
 {
     forceAccum.clear();
 }
+// < ParticleAccum
 
+// > ParticleAddForce
 void Particle::addForce(const Vector3 &force)
 {
     forceAccum += force;
 }
+// < ParticleAddForce

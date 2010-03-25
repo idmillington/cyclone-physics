@@ -9,9 +9,7 @@
  * implies agreement with all terms and conditions of the accompanying
  * software licence.
  */
-
-
-#include <cyclone/collide_fine.h>
+#include <cyclone/collide_narrow.h>
 #include <memory.h>
 #include <assert.h>
 #include <cstdlib>
@@ -140,6 +138,7 @@ bool IntersectionTests::boxAndHalfSpace(
     return boxDistance <= plane.offset;
 }
 
+// > SphereTruePlane
 unsigned CollisionDetector::sphereAndTruePlane(
     const CollisionSphere &sphere,
     const CollisionPlane &plane,
@@ -182,7 +181,9 @@ unsigned CollisionDetector::sphereAndTruePlane(
     data->addContacts(1);
     return 1;
 }
+// < SphereTruePlane
 
+// > SphereHalfSpace
 unsigned CollisionDetector::sphereAndHalfSpace(
     const CollisionSphere &sphere,
     const CollisionPlane &plane,
@@ -214,7 +215,9 @@ unsigned CollisionDetector::sphereAndHalfSpace(
     data->addContacts(1);
     return 1;
 }
+// < SphereHalfSpace
 
+// > SphereSphereCollide
 unsigned CollisionDetector::sphereAndSphere(
     const CollisionSphere &one,
     const CollisionSphere &two,
@@ -252,8 +255,7 @@ unsigned CollisionDetector::sphereAndSphere(
     data->addContacts(1);
     return 1;
 }
-
-
+// < SphereSphereCollide
 
 
 /*
@@ -413,8 +415,6 @@ unsigned CollisionDetector::boxAndBox(
     CollisionData *data
     )
 {
-    //if (!IntersectionTests::boxAndBox(one, two)) return 0;
-
     // Find the vector between the two centres
     Vector3 toCentre = two.getAxis(3) - one.getAxis(3);
 
@@ -583,16 +583,19 @@ unsigned CollisionDetector::boxAndPoint(
     return 1;
 }
 
+// > SphereBoxCollision
 unsigned CollisionDetector::boxAndSphere(
     const CollisionBox &box,
     const CollisionSphere &sphere,
     CollisionData *data
     )
 {
+    // > SphereBoxCentreToBox
     // Transform the centre of the sphere into box coordinates
     Vector3 centre = sphere.getAxis(3);
     Vector3 relCentre = box.transform.transformInverse(centre);
 
+    // < SphereBoxCentreToBox
     // Early out check to see if we can exclude the contact
     if (real_abs(relCentre.x) - sphere.radius > box.halfSize.x ||
         real_abs(relCentre.y) - sphere.radius > box.halfSize.y ||
@@ -601,6 +604,7 @@ unsigned CollisionDetector::boxAndSphere(
         return 0;
     }
 
+    // > SphereBoxClampAndTest
     Vector3 closestPt(0,0,0);
     real dist;
 
@@ -623,9 +627,12 @@ unsigned CollisionDetector::boxAndSphere(
     // Check we're in contact
     dist = (closestPt - relCentre).squareMagnitude();
     if (dist > sphere.radius * sphere.radius) return 0;
+    // < SphereBoxClampAndTest
 
     // Compile the contact
+    // > SphereBoxUntransformClosestPoint
     Vector3 closestPtWorld = box.transform.transform(closestPt);
+    // < SphereBoxUntransformClosestPoint
 
     Contact* contact = data->contacts;
     contact->contactNormal = (closestPtWorld - centre);
@@ -638,7 +645,9 @@ unsigned CollisionDetector::boxAndSphere(
     data->addContacts(1);
     return 1;
 }
+// < SphereBoxCollision
 
+// > BoxPlaneTestFull
 unsigned CollisionDetector::boxAndHalfSpace(
     const CollisionBox &box,
     const CollisionPlane &plane,
@@ -671,6 +680,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
         vertexPos.componentProductUpdate(box.halfSize);
         vertexPos = box.transform.transform(vertexPos);
 
+        // > BoxPlaneTestOne
         // Calculate the distance from the plane
         real vertexDistance = vertexPos * plane.direction;
 
@@ -697,8 +707,10 @@ unsigned CollisionDetector::boxAndHalfSpace(
             contactsUsed++;
             if (contactsUsed == data->contactsLeft) return contactsUsed;
         }
+        // < BoxPlaneTestOne
     }
 
     data->addContacts(contactsUsed);
     return contactsUsed;
 }
+// < BoxPlaneTestFull

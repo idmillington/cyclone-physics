@@ -9,9 +9,7 @@
  * implies agreement with all terms and conditions of the accompanying
  * software licence.
  */
-
-
-#include <cyclone/collide_coarse.h>
+#include <cyclone/collide_broad.h>
 
 using namespace cyclone;
 
@@ -21,6 +19,7 @@ BoundingSphere::BoundingSphere(const Vector3 &centre, real radius)
     BoundingSphere::radius = radius;
 }
 
+// > SphereBVH
 BoundingSphere::BoundingSphere(const BoundingSphere &one,
                                const BoundingSphere &two)
 {
@@ -67,6 +66,7 @@ bool BoundingSphere::overlaps(const BoundingSphere *other) const
     real distanceSquared = (centre - other->centre).squareMagnitude();
     return distanceSquared < (radius+other->radius)*(radius+other->radius);
 }
+// < SphereBVH
 
 real BoundingSphere::getGrowth(const BoundingSphere &other) const
 {

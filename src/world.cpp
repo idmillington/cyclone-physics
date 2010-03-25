@@ -17,7 +17,6 @@ using namespace cyclone;
 
 World::World(unsigned maxContacts, unsigned iterations)
 :
-firstBody(NULL),
 firstContactGen(NULL),
 resolver(iterations),
 maxContacts(maxContacts)
@@ -31,19 +30,18 @@ World::~World()
     delete[] contacts;
 }
 
+// > WorldStartFrame
 void World::startFrame()
 {
-    BodyRegistration *reg = firstBody;
-    while (reg)
+    for (RigidBodies::iterator b = bodies.begin();
+        b != bodies.end();
+        b++)
     {
-        // Remove all forces from the accumulator
-        reg->body->clearAccumulators();
-        reg->body->calculateDerivedData();
-
-        // Get the next registration
-        reg = reg->next;
+        b->clearAccumulators();
+        b->calculateDerivedData();
     }
 }
+// < WorldStartFrame
 
 unsigned World::generateContacts()
 {
@@ -68,21 +66,26 @@ unsigned World::generateContacts()
     return maxContacts - limit;
 }
 
+// > WorldRunPhysics
+void ParticleWorld::integrate(real duration)
+{
+    for (RigidBodies::iterator b = bodies.begin();
+        b != bodies.end();
+        b++)
+    {
+        // Integrate the body by the given duration.
+        b->integrate(duration);
+    }
+}
+
 void World::runPhysics(real duration)
 {
     // First apply the force generators
-    //registry.updateForces(duration);
+    registry.updateForces(duration);
 
     // Then integrate the objects
-    BodyRegistration *reg = firstBody;
-    while (reg)
-    {
-        // Remove all forces from the accumulator
-        reg->body->integrate(duration);
-
-        // Get the next registration
-        reg = reg->next;
-    }
+    integrate(duration);
+    // < WorldRunPhysics
 
     // Generate contacts
     unsigned usedContacts = generateContacts();
@@ -90,4 +93,6 @@ void World::runPhysics(real duration)
     // And process them
     if (calculateIterations) resolver.setIterations(usedContacts * 4);
     resolver.resolveContacts(contacts, usedContacts, duration);
+    // > WorldRunPhysics
 }
+// < WorldRunPhysics

@@ -23,33 +23,35 @@
 #include "contacts.h"
 
 namespace cyclone {
+    // > WorldStructureIntro
     /**
      * The world represents an independent simulation of physics.  It
      * keeps track of a set of rigid bodies, and provides the means to
      * update them all.
      */
+    // > WorldStructure
     class World
     {
+        // < WorldStructureIntro
         // ... other World data as before ...
+
+        // < WorldStructure
+        // > WorldStructureIntro
+    public:
+        typedef std::vector<RigidBody*> RigidBodies;
+        
+    protected:
+        /**
+         * Holds the rigid bodies being simulated.
+         */
+        RigidBodies bodies;
+
+        // < WorldStructureIntro
         /**
          * True if the world should calculate the number of iterations
          * to give the contact resolver at each frame.
          */
         bool calculateIterations;
-
-        /**
-         * Holds a single rigid body in a linked list of bodies.
-         */
-        struct BodyRegistration
-        {
-            RigidBody *body;
-            BodyRegistration * next;
-        };
-
-        /**
-         * Holds the head of the list of registered bodies.
-         */
-        BodyRegistration *firstBody;
 
         /**
          * Holds the resolver for sets of contacts.
@@ -99,11 +101,14 @@ namespace cyclone {
          */
         unsigned generateContacts();
 
+        // > WorldRunPhysics
         /**
          * Processes all the physics for the world.
          */
         void runPhysics(real duration);
+        // < WorldRunPhysics
 
+        // > WorldStartFrame
         /**
          * Initialises the world for a simulation frame. This clears
          * the force and torque accumulators for bodies in the
@@ -111,8 +116,10 @@ namespace cyclone {
          * and torques for this frame added.
          */
         void startFrame();
-
+        // < WorldStartFrame
+        // > WorldStructure; WorldStructureIntro
     };
+    // < WorldStructure; WorldStructureIntro
 
 } // namespace cyclone
 

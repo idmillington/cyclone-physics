@@ -175,13 +175,14 @@ namespace cyclone {
             const CollisionPlane &plane);
     };
 
-
+    // > CollisionDataIntro
     /**
      * A helper structure that contains information for the detector to use
      * in building its contact data.
      */
     struct CollisionData
     {
+        // < CollisionDataIntro
         /**
          * Holds the base of the collision data: the first contact
          * in the array. This is used so that the contact pointer (below)
@@ -190,11 +191,13 @@ namespace cyclone {
          */
         Contact *contactArray;
 
+        // > CollisionDataIntro
         /** Holds the contact array to write into. */
         Contact *contacts;
 
         /** Holds the maximum number of contacts the array can take. */
         int contactsLeft;
+        // < CollisionDataIntro
 
         /** Holds the number of contacts found so far. */
         unsigned contactCount;
@@ -243,7 +246,9 @@ namespace cyclone {
             // Move the array forward
             contacts += count;
         }
+        // > CollisionDataIntro
     };
+    // < CollisionDataIntro
 
     /**
      * A wrapper class that holds the fine grained collision detection

@@ -10,10 +10,10 @@
  * software licence.
  */
 
+// > ParticleFGUpdate
 #include <cyclone/pfgen.h>
 
 using namespace cyclone;
-
 
 void ParticleForceRegistry::updateForces(real duration)
 {
@@ -23,6 +23,7 @@ void ParticleForceRegistry::updateForces(real duration)
         i->fg->updateForce(i->particle, duration);
     }
 }
+// < ParticleFGUpdate
 
 void ParticleForceRegistry::add(Particle* particle, ParticleForceGenerator *fg)
 {
@@ -37,6 +38,7 @@ ParticleGravity::ParticleGravity(const Vector3& gravity)
 {
 }
 
+// > GravityPFG
 void ParticleGravity::updateForce(Particle* particle, real duration)
 {
     // Check that we do not have infinite mass
@@ -45,12 +47,14 @@ void ParticleGravity::updateForce(Particle* particle, real duration)
     // Apply the mass-scaled force to the particle
     particle->addForce(gravity * particle->getMass());
 }
+// < GravityPFG
 
 ParticleDrag::ParticleDrag(real k1, real k2)
 : k1(k1), k2(k2)
 {
 }
 
+// > DragPFG
 void ParticleDrag::updateForce(Particle* particle, real duration)
 {
     Vector3 force;
@@ -65,12 +69,14 @@ void ParticleDrag::updateForce(Particle* particle, real duration)
     force *= -dragCoeff;
     particle->addForce(force);
 }
+// < DragPFG
 
 ParticleSpring::ParticleSpring(Particle *other, real sc, real rl)
 : other(other), springConstant(sc), restLength(rl)
 {
 }
 
+// > SpringPFG
 void ParticleSpring::updateForce(Particle* particle, real duration)
 {
     // Calculate the vector of the spring
@@ -88,6 +94,7 @@ void ParticleSpring::updateForce(Particle* particle, real duration)
     force *= -magnitude;
     particle->addForce(force);
 }
+// < SpringPFG
 
 ParticleBuoyancy::ParticleBuoyancy(real maxDepth,
                                  real volume,
@@ -99,6 +106,7 @@ waterHeight(waterHeight), liquidDensity(liquidDensity)
 {
 }
 
+// > BuoyancyPFG
 void ParticleBuoyancy::updateForce(Particle* particle, real duration)
 {
     // Calculate the submersion depth
@@ -121,12 +129,14 @@ void ParticleBuoyancy::updateForce(Particle* particle, real duration)
         (depth - maxDepth - waterHeight) / 2 * maxDepth;
     particle->addForce(force);
 }
+// < BuoyancyPFG
 
 ParticleBungee::ParticleBungee(Particle *other, real sc, real rl)
 : other(other), springConstant(sc), restLength(rl)
 {
 }
 
+// > BungeePFG
 void ParticleBungee::updateForce(Particle* particle, real duration)
 {
     // Calculate the vector of the spring
@@ -146,12 +156,14 @@ void ParticleBungee::updateForce(Particle* particle, real duration)
     force *= -magnitude;
     particle->addForce(force);
 }
+// < BungeePFG
 
 ParticleFakeSpring::ParticleFakeSpring(Vector3 *anchor, real sc, real d)
 : anchor(anchor), springConstant(sc), damping(d)
 {
 }
 
+// > FakeSpringPFG
 void ParticleFakeSpring::updateForce(Particle* particle, real duration)
 {
     // Check that we do not have infinite mass
@@ -178,6 +190,7 @@ void ParticleFakeSpring::updateForce(Particle* particle, real duration)
         particle->getVelocity() * duration;
     particle->addForce(accel * particle->getMass());
 }
+// < FakeSpringPFG
 
 ParticleAnchoredSpring::ParticleAnchoredSpring()
 {
@@ -217,6 +230,7 @@ void ParticleAnchoredBungee::updateForce(Particle* particle, real duration)
     particle->addForce(force);
 }
 
+// > ASpringPFG
 void ParticleAnchoredSpring::updateForce(Particle* particle, real duration)
 {
     // Calculate the vector of the spring
@@ -233,3 +247,4 @@ void ParticleAnchoredSpring::updateForce(Particle* particle, real duration)
     force *= magnitude;
     particle->addForce(force);
 }
+// < ASpringPFG

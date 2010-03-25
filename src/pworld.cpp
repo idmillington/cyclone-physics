@@ -41,6 +41,7 @@ void ParticleWorld::startFrame()
     }
 }
 
+// > ParticleWorldRun
 unsigned ParticleWorld::generateContacts()
 {
     unsigned limit = maxContacts;
@@ -69,8 +70,8 @@ void ParticleWorld::integrate(real duration)
         p != particles.end();
         p++)
     {
-        // Remove all forces from the accumulator
-        (*p)->integrate(duration);
+        // Integrate the particle by the given duration.
+        p->integrate(duration);
     }
 }
 
@@ -92,6 +93,7 @@ void ParticleWorld::runPhysics(real duration)
         resolver.resolveContacts(contacts, usedContacts, duration);
     }
 }
+// < ParticleWorldRun
 
 ParticleWorld::Particles& ParticleWorld::getParticles()
 {

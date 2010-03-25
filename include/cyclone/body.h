@@ -23,9 +23,11 @@
 
 namespace cyclone {
 
+    // > RigidBodyIntro
     /**
      * A rigid body is the basic simulation object in the physics
      * core.
+     // < RigidBodyIntro
      *
      * It has position and orientation data, along with first
      * derivatives. It can be integrated forward through time, and
@@ -38,15 +40,18 @@ namespace cyclone {
      * functions, so should take up exactly 64 words in memory. Of
      * this total 15 words are padding, distributed among the
      * Vector3 data members.
+     // > RigidBodyIntro
      */
+    // > RigidBody
     class RigidBody
     {
-    public:
-
+        // < RigidBodyIntro
         // ... Other RigidBody code as before ...
 
-
+        // < RigidBody
+        // > RigidBodyIntro
     protected:
+        // < RigidBodyIntro
         /**
          * @name Characteristic Data and State
          *
@@ -80,6 +85,7 @@ namespace cyclone {
          * @see calculateInternals
          */
         /*@{*/
+        // > RigidBodyIntro
         /**
          * Holds the inverse of the mass of the rigid body. It
          * is more useful to hold the inverse mass because
@@ -90,6 +96,8 @@ namespace cyclone {
          */
         real inverseMass;
 
+        // < RigidBodyIntro
+        // > InverseInertiaTensor
         /**
          * Holds the inverse of the body's inertia tensor. The
          * intertia tensor provided must not be degenerate
@@ -105,7 +113,9 @@ namespace cyclone {
          * @see inverseMass
          */
         Matrix3 inverseInertiaTensor;
+        // < InverseInertiaTensor
 
+        // > RigidBodyIntro
         /**
          * Holds the amount of damping applied to linear
          * motion.  Damping is required to remove energy added
@@ -113,6 +123,8 @@ namespace cyclone {
          */
         real linearDamping;
 
+        // < RigidBodyIntro
+        // > AngularDamping
         /**
          * Holds the amount of damping applied to angular
          * motion.  Damping is required to remove energy added
@@ -120,6 +132,8 @@ namespace cyclone {
          */
         real angularDamping;
 
+        // < AngularDamping
+        // > RigidBodyIntro
         /**
          * Holds the linear position of the rigid body in
          * world space.
@@ -144,6 +158,7 @@ namespace cyclone {
          */
         Vector3 rotation;
 
+        // < RigidBodyIntro
         /*@}*/
 
 
@@ -164,6 +179,7 @@ namespace cyclone {
          */
         Matrix3 inverseInertiaTensorWorld;
 
+        // > SleepData
         /**
          * Holds the amount of motion of the body. This is a recency
          * weighted mean that can be used to put a body to sleap.
@@ -183,7 +199,9 @@ namespace cyclone {
          * always awake.
          */
         bool canSleep;
-
+        // < SleepData
+        
+        // > RigidBodyIntro
         /**
          * Holds a transform matrix for converting body space into
          * world space and vice versa. This can be achieved by calling
@@ -195,6 +213,7 @@ namespace cyclone {
          */
         Matrix4 transformMatrix;
 
+        // < RigidBodyIntro
         /*@}*/
 
 
@@ -229,11 +248,13 @@ namespace cyclone {
          */
         Vector3 acceleration;
 
+        // > LastUpdateAcceleration
         /**
          * Holds the linear acceleration of the rigid body, for the
          * previous frame.
          */
         Vector3 lastFrameAcceleration;
+        // < LastUpdateAcceleration
 
         /*@}*/
 
@@ -264,6 +285,7 @@ namespace cyclone {
          */
         /*@{*/
 
+        // > CalculateDerivedData
         /**
          * Calculates internal data from state data. This should be called
          * after the body's state is altered directly (it is called
@@ -272,6 +294,7 @@ namespace cyclone {
          * the transform matrix), then you can ommit this step.
          */
         void calculateDerivedData();
+        // < CalculateDerivedData
 
         /**
          * Integrates the rigid body forward in time by the given amount.
@@ -803,15 +826,19 @@ namespace cyclone {
             return isAwake;
         }
 
+        // > SetAwake
         /**
          * Sets the awake state of the body. If the body is set to be
          * not awake, then its velocities are also cancelled, since
          * a moving body that is not awake can cause problems in the
          * simulation.
+         // < SetAwake
          *
          * @param awake The new awake state of the body.
+         // > SetAwake
          */
         void setAwake(const bool awake=true);
+        // < SetAwake
 
         /**
          * Returns true if the body is allowed to go to sleep at
@@ -882,12 +909,15 @@ namespace cyclone {
          */
         /*@{*/
 
+        // > ClearAccumulators
         /**
          * Clears the forces and torques in the accumulators. This will
          * be called automatically after each intergration step.
          */
         void clearAccumulators();
+        // < ClearAccumulators
 
+        // > AddForceAtCenter
         /**
          * Adds the given force to centre of mass of the rigid body.
          * The force is expressed in world-coordinates.
@@ -895,20 +925,24 @@ namespace cyclone {
          * @param force The force to apply.
          */
         void addForce(const Vector3 &force);
+        // < AddForceAtCenter
 
+        // > AddForceBody
         /**
          * Adds the given force to the given point on the rigid body.
-         * Both the force and the
-         * application point are given in world space. Because the
-         * force is not applied at the centre of mass, it may be split
-         * into both a force and torque.
+         * Both the force and the application point are given in world
+         * space. Because the force is not applied at the centre of
+         * mass, it may be split into both a force and torque.
+         // < AddForceBody
          *
          * @param force The force to apply.
          *
          * @param point The location at which to apply the force, in
          * world-coordinates.
+         // > AddForceBody
          */
-        void addForceAtPoint(const Vector3 &force, const Vector3 &point);
+        void addForceAtPoint(const Vector3 &force, 
+                             const Vector3 &point);
 
         /**
          * Adds the given force to the given point on the rigid body.
@@ -916,13 +950,17 @@ namespace cyclone {
          * but the application point is given in body space. This is
          * useful for spring forces, or other forces fixed to the
          * body.
+         // < AddForceBody
          *
          * @param force The force to apply.
          *
          * @param point The location at which to apply the force, in
          * body-coordinates.
+         // > AddForceBody
          */
-        void addForceAtBodyPoint(const Vector3 &force, const Vector3 &point);
+        void addForceAtBodyPoint(const Vector3 &force, 
+                                 const Vector3 &point);
+        // < AddForceBody
 
         /**
          * Adds the given torque to the rigid body.
@@ -970,8 +1008,9 @@ namespace cyclone {
         Vector3 getAcceleration() const;
 
         /*@}*/
-
+        // > RigidBodyIntro; RigidBody
     };
+    // < RigidBodyIntro; RigidBody
 
 } // namespace cyclone
 

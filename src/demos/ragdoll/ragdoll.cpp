@@ -224,6 +224,7 @@ const char* RagdollDemo::getTitle()
     return "Cyclone > Ragdoll Demo";
 }
 
+// > RunJoints
 void RagdollDemo::generateContacts()
 {
     // Create the ground plane data
@@ -246,13 +247,11 @@ void RagdollDemo::generateContacts()
         if (!cData.hasMoreContacts()) return;
         cyclone::CollisionDetector::boxAndHalfSpace(*bone, plane, &cData);
 
+        // Check for collisions with each other bone
         cyclone::CollisionSphere boneSphere = bone->getCollisionSphere();
-
-        // Check for collisions with each other box
         for (Bone *other = bone+1; other < bones+NUM_BONES; other++)
         {
             if (!cData.hasMoreContacts()) return;
-
             cyclone::CollisionSphere otherSphere = other->getCollisionSphere();
 
             cyclone::CollisionDetector::sphereAndSphere(
@@ -271,6 +270,7 @@ void RagdollDemo::generateContacts()
         cData.addContacts(added);
     }
 }
+// < RunJoints
 
 void RagdollDemo::reset()
 {

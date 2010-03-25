@@ -85,6 +85,7 @@ public:
         body->calculateDerivedData();
     }
 
+    // > CalculateBlockTensor
     /**
      * Calculates and sets the mass and inertia tensor of this block,
      * assuming it has the given constant density.
@@ -118,19 +119,23 @@ public:
         }
 
     }
+    // < CalculateBlockTensor
 
+    // > DivideBlock
     /**
      * Performs the division of the given block into four, writing the
-     * eight new blocks into the given blocks array. The blocks array can be
-     * a pointer to the same location as the target pointer: since the
-     * original block is always deleted, this effectively reuses its storage.
-     * The algorithm is structured to allow this reuse.
+     * eight new blocks into the given blocks array. The blocks array
+     * can be a pointer to the same location as the target pointer:
+     * since the original block is always deleted, this effectively
+     * reuses its storage.  The algorithm is structured to allow this
+     * reuse.
      */
     void divideBlock(const cyclone::Contact& contact,
-        Block* target, Block* blocks)
+                     Block* target, 
+                     Block* blocks)
     {
-        // Find out if we're block one or two in the contact structure, and
-        // therefore what the contact normal is.
+        // Find out if we're block one or two in the contact
+        // structure, and therefore what the contact normal is.
         cyclone::Vector3 normal = contact.contactNormal;
         cyclone::RigidBody *body = contact.body[0];
         if (body != target->body)
@@ -139,17 +144,19 @@ public:
             body = contact.body[1];
         }
 
-        // Work out where on the body (in body coordinates) the contact is
-        // and its direction.
-        cyclone::Vector3 point = body->getPointInLocalSpace(contact.contactPoint);
+        // Work out where on the body (in body coordinates) the
+        // contact is and its direction.
+        cyclone::Vector3 point = 
+            body->getPointInLocalSpace(contact.contactPoint);
         normal = body->getDirectionInLocalSpace(normal);
 
-        // Work out the centre of the split: this is the point coordinates
-        // for each of the axes perpendicular to the normal, and 0 for the
-        // axis along the normal.
+        // Work out the centre of the split: this is the point
+        // coordinates for each of the axes perpendicular to the
+        // normal, and 0 for the axis along the normal.
         point = point - normal * (point * normal);
 
-        // Take a copy of the half size, so we can create the new blocks.
+        // Take a copy of the half size, so we can create the new
+        // blocks.
         cyclone::Vector3 size = target->halfSize;
 
         // Take a copy also of the body's other data.
@@ -213,7 +220,10 @@ public:
             // Set the body's properties (we assume the block has a body
             // already that we're going to overwrite).
             blocks[i].body->setPosition(newPos);
-            blocks[i].body->setVelocity(tempBody.getVelocity() + direction * 10.0f);
+            blocks[i].body->setVelocity(
+                // Add a separating velocity to burst the fracture open
+                tempBody.getVelocity() + direction * 10.0f
+                );
             blocks[i].body->setOrientation(tempBody.getOrientation());
             blocks[i].body->setRotation(tempBody.getRotation());
             blocks[i].body->setLinearDamping(tempBody.getLinearDamping());
@@ -230,6 +240,7 @@ public:
             blocks[i].calculateMassProperties(invDensity);
         }
     }
+    // < DivideBlock
 };
 
 /**
