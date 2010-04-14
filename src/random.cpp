@@ -44,12 +44,24 @@ void Random::seed(unsigned s)
     p1 = 0;  p2 = 10;
 }
 
+unsigned Random::rotl(unsigned n, unsigned r)
+{
+	  return	(n << r) |
+			  (n >> (32 - r));
+}
+
+unsigned Random::rotr(unsigned n, unsigned r)
+{
+	  return	(n >> r) |
+				(n << (32 - r));
+}
+
 unsigned Random::randomBits()
 {
     unsigned result;
 
     // Rotate the buffer and store it back to itself
-    result = buffer[p1] = _lrotl(buffer[p2], 13) + _lrotl(buffer[p1], 9);
+    result = buffer[p1] = rotl(buffer[p2], 13) + rotl(buffer[p1], 9);
 
     // Rotate pointers
     if (--p1 < 0) p1 = 16;

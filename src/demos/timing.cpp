@@ -12,17 +12,41 @@
 
 #include "timing.h"
 
-// Import the high performance timer (c. 4ms).
-#include <windows.h>
-#include <mmsystem.h>
 
 // Hold internal timing data for the performance counter.
 static bool qpcFlag;
-static double qpcFrequency;
+
+#if (__APPLE__ || __unix)
+	#define TIMING_UNIX	1
+
+	#include <stdlib.h>
+	#include <sys/time.h>
+
+	// assume unix based OS
+	typedef unsigned long long	LONGLONG;
+#else
+	#define TIMING_WINDOWS	1
+	// assume windows
+
+	// Import the high performance timer (c. 4ms).
+	#include <windows.h>
+	#include <mmsystem.h>
+
+	static double qpcFrequency;
+#endif
+
+
 
 // Internal time and clock access functions
 unsigned systemTime()
 {
+#if TIMING_UNIX
+	struct timeval tv;
+	gettimeofday(&tv, 0);
+
+	return tv.tv_sec * 1000 + tv.tv_usec/1000;
+
+#else
     if(qpcFlag)
     {
         static LONGLONG qpcMillisPerTick;
@@ -33,6 +57,8 @@ unsigned systemTime()
     {
         return unsigned(timeGetTime());
     }
+#endif
+
 }
 
 unsigned TimingData::getTime()
@@ -40,21 +66,34 @@ unsigned TimingData::getTime()
     return systemTime();
 }
 
+#if TIMING_WINDOWS
 unsigned long systemClock()
 {
     __asm {
-        rdtsc;
+    	rdtsc;
     }
 }
+#endif
 
 unsigned long TimingData::getClock()
 {
+
+#if TIMING_UNIX
+	struct timeval tv;
+	gettimeofday(&tv, 0);
+
+	return tv.tv_sec * 1000 + tv.tv_usec/1000;
+#else
     return systemClock();
+#endif
 }
 
 // Sets up the timing system and registers the performance timer.
 void initTime()
 {
+#if TIMING_UNIX
+    qpcFlag = false;
+#else
     LONGLONG time;
 
     qpcFlag = (QueryPerformanceFrequency((LARGE_INTEGER*)&time) > 0);
@@ -62,6 +101,7 @@ void initTime()
     // Check if we have access to the performance counter at this
     // resolution.
     if (qpcFlag) qpcFrequency = 1000.0 / time;
+#endif
 }
 
 
@@ -92,7 +132,7 @@ void TimingData::update()
     timingData->lastFrameTimestamp = thisTime;
 
     // Update the tick information.
-    unsigned long thisClock = systemClock();
+    unsigned long thisClock = getClock();
     timingData->lastFrameClockTicks =
     thisClock - timingData->lastFrameClockstamp;
     timingData->lastFrameClockstamp = thisClock;
@@ -132,7 +172,7 @@ void TimingData::init()
     timingData->lastFrameTimestamp = systemTime();
     timingData->lastFrameDuration = 0;
 
-    timingData->lastFrameClockstamp = systemClock();
+    timingData->lastFrameClockstamp = getClock();
     timingData->lastFrameClockTicks = 0;
 
     timingData->isPaused = false;
