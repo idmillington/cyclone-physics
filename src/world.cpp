@@ -18,8 +18,8 @@ using namespace cyclone;
 World::World(unsigned maxContacts, unsigned iterations)
 :
 firstBody(NULL),
-firstContactGen(NULL),
 resolver(iterations),
+firstContactGen(NULL),
 maxContacts(maxContacts)
 {
     contacts = new Contact[maxContacts];

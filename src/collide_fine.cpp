@@ -286,7 +286,7 @@ static inline real penetrationOnAxis(
 static inline bool tryAxis(
     const CollisionBox &one,
     const CollisionBox &two,
-    Vector3& axis,
+    Vector3 axis,
     const Vector3& toCentre,
     unsigned index,
 
@@ -695,7 +695,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
             // Move onto the next contact
             contact++;
             contactsUsed++;
-            if (contactsUsed == data->contactsLeft) return contactsUsed;
+            if (contactsUsed == (unsigned)data->contactsLeft) return contactsUsed;
         }
     }
 
