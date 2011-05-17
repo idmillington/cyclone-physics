@@ -61,15 +61,15 @@ void Matrix4::setInverse(const Matrix4 &m)
 
     data[0] = (-m.data[9]*m.data[6]+m.data[5]*m.data[10])*det;
     data[4] = (m.data[8]*m.data[6]-m.data[4]*m.data[10])*det;
-    data[8] = (-m.data[8]*m.data[5]+m.data[4]*m.data[9]* m.data[15])*det;
+    data[8] = (-m.data[8]*m.data[5]+m.data[4]*m.data[9])*det;
 
     data[1] = (m.data[9]*m.data[2]-m.data[1]*m.data[10])*det;
     data[5] = (-m.data[8]*m.data[2]+m.data[0]*m.data[10])*det;
-    data[9] = (m.data[8]*m.data[1]-m.data[0]*m.data[9]* m.data[15])*det;
+    data[9] = (m.data[8]*m.data[1]-m.data[0]*m.data[9])*det;
 
-    data[2] = (-m.data[5]*m.data[2]+m.data[1]*m.data[6]* m.data[15])*det;
-    data[6] = (+m.data[4]*m.data[2]-m.data[0]*m.data[6]* m.data[15])*det;
-    data[10] = (-m.data[4]*m.data[1]+m.data[0]*m.data[5]* m.data[15])*det;
+    data[2] = (-m.data[5]*m.data[2]+m.data[1]*m.data[6])*det;
+    data[6] = (+m.data[4]*m.data[2]-m.data[0]*m.data[6])*det;
+    data[10] = (-m.data[4]*m.data[1]+m.data[0]*m.data[5])*det;
 
     data[3] = (m.data[9]*m.data[6]*m.data[3]
                -m.data[5]*m.data[10]*m.data[3]
