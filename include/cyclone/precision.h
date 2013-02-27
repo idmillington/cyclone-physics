@@ -63,6 +63,9 @@ namespace cyclone {
 
     /** Defines the precision of the floating point modulo operator. */
     #define real_fmod fmodf
+    
+    /** Defines the number e on which 1+e == 1 **/
+    #define real_epsilon FLT_EPSILON
 
     #define R_PI 3.14159f
 #else
@@ -76,6 +79,7 @@ namespace cyclone {
     #define real_exp exp
     #define real_pow pow
     #define real_fmod fmod
+    #define real_epsilon DBL_EPSILON
     #define R_PI 3.14159265358979
 #endif
 }
