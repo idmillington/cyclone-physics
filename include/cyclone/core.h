@@ -550,7 +550,7 @@ namespace cyclone {
 
             // Check for zero length quaternion, and use the no-rotation
             // quaternion in that case.
-            if (d == 0) {
+            if (d < real_epsilon) {
                 r = 1;
                 return;
             }
