@@ -446,7 +446,7 @@ namespace cyclone {
         {
             x = -x;
             y = -y;
-            x = -z;
+            z = -z;
         }
 
     };
