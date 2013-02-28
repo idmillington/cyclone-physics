@@ -92,7 +92,7 @@ namespace cyclone {
 
         /**
          * Holds the inverse of the body's inertia tensor. The
-         * intertia tensor provided must not be degenerate
+         * inertia tensor provided must not be degenerate
          * (that would mean the body had zero inertia for
          * spinning along one axis). As long as the tensor is
          * finite, it will be invertible. The inverse tensor
