@@ -5,7 +5,7 @@ CYCLONEOBJS=src/body.o src/collide_coarse.o src/collide_fine.o src/contacts.o sr
 
 # DEMO FILES
 SOURCES=body
-LDFLAGS=-lGL -lglut -lGLU -L./Debug
+LDFLAGS=-lGL -lglut -lGLU -L./Debug -std=c++0x
 DEMO_CPP=./src/demos/app.cpp ./src/demos/timing.cpp ./src/demos/main.cpp
 CYCLONELIB=./lib/libcyclone.so
 
