@@ -19,7 +19,7 @@ libcyclone.so: $(CYCLONEOBJS)
 	$(CXX) $(CYCLONEOBJS) -shared -dynamiclib -o lib/libcyclone.so
 
 $(DEMOS): 
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o ./bin/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp
+	$(CXX) -o ./bin/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp $(CXXFLAGS) $(LDFLAGS) 
 
 
 clean:
