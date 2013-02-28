@@ -29,6 +29,25 @@ void TimingData::update()
 		timingData->lastFrameTimestamp;
 	timingData->lastFrameTimestamp = thisTime;
 
+	// Update the RWA frame rate if we are able to.
+	if (timingData->frameNumber > 1) {
+		if (timingData->averageFrameDuration <= 0)
+		{
+			timingData->averageFrameDuration =
+				(double)timingData->lastFrameDuration;
+		}
+		else
+		{
+			// RWA over 100 frames.
+			timingData->averageFrameDuration *= 0.99;
+			timingData->averageFrameDuration +=
+				0.01 * (double)timingData->lastFrameDuration;
+
+			// Invert to get FPS
+			timingData->fps =
+				(float)(1000.0/timingData->averageFrameDuration);
+		}
+	}
 
 
 }
