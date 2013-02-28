@@ -30,7 +30,7 @@ class AmmoRound : public cyclone::CollisionSphere
 {
 public:
     ShotType type;
-    unsigned startTime;
+    double startTime;
 
     AmmoRound()
     {
