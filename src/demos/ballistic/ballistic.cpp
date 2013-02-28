@@ -38,7 +38,7 @@ class BallisticDemo : public Application
     {
         cyclone::Particle particle;
         ShotType type;
-        unsigned startTime;
+        double startTime;
 
         /** Draws the round. */
         void render()
