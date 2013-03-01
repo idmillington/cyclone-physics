@@ -154,7 +154,8 @@ void Contact::calculateDesiredDeltaVelocity(real duration)
 
     if (body[0]->getAwake())
     {
-        body[0]->getLastFrameAcceleration() * duration * contactNormal;
+	velocityFromAcc+= 
+	    body[0]->getLastFrameAcceleration() * duration * contactNormal;
     }
 
     if (body[1] && body[1]->getAwake())
