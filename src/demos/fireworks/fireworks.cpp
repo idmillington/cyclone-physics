@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 
-static cyclone::Random random;
+static cyclone::Random crandom;
 
 /**
  * Fireworks are particles, with additional data for rendering and
@@ -143,7 +143,7 @@ struct FireworkRule
     void create(Firework *firework, const Firework *parent = NULL) const
     {
         firework->type = type;
-        firework->age = random.randomReal(minAge, maxAge);
+        firework->age = crandom.randomReal(minAge, maxAge);
 
         cyclone::Vector3 vel;
         if (parent) {
@@ -154,12 +154,12 @@ struct FireworkRule
         else
         {
             cyclone::Vector3 start;
-            int x = (int)random.randomInt(3) - 1;
+            int x = (int)crandom.randomInt(3) - 1;
             start.x = 5.0f * cyclone::real(x);
             firework->setPosition(start);
         }
 
-        vel += random.randomVector(minVelocity, maxVelocity);
+        vel += crandom.randomVector(minVelocity, maxVelocity);
         firework->setVelocity(vel);
 
         // We use a mass of one in all cases (no point having fireworks
@@ -442,7 +442,7 @@ void FireworksDemo::display()
             case 9: glColor3f(1,0.5f,0.5f); break;
             };
 
-            cyclone::Vector3 &pos = firework->getPosition();
+            const cyclone::Vector3 &pos = firework->getPosition();
             glVertex3f(pos.x-size, pos.y-size, pos.z);
             glVertex3f(pos.x+size, pos.y-size, pos.z);
             glVertex3f(pos.x+size, pos.y+size, pos.z);

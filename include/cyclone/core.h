@@ -86,7 +86,8 @@
  * the accompanying software and documentation license.
  */
 
-#include <math.h>
+#include <cmath>
+#include <cstddef>
 
 /**
  * @file

@@ -50,7 +50,7 @@ void ParticleContact::resolveVelocity(real duration)
     if (particle[1]) accCausedVelocity -= particle[1]->getAcceleration();
     real accCausedSepVelocity = accCausedVelocity * contactNormal * duration;
 
-    // If we've got a closing velocity due to acelleration build-up,
+    // If we've got a closing velocity due to acceleration build-up,
     // remove it from the new separating velocity
     if (accCausedSepVelocity < 0)
     {

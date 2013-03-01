@@ -100,7 +100,7 @@ void motion(int x, int y)
 /**
  * The main entry point. We pass arguments onto GLUT.
  */
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
     // Set up GLUT and the timers
     glutInit(&argc, argv);
