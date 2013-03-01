@@ -32,6 +32,15 @@ namespace cyclone {
     class Random
     {
     public:
+    	/**
+    	 * left bitwise rotation
+    	 */
+
+    	unsigned rotl(unsigned n, unsigned r);
+    	/**
+    	 * right bitwise rotation
+    	 */
+    	unsigned rotr(unsigned n, unsigned r);
 
         /**
          * Creates a new random number stream with a seed based on
