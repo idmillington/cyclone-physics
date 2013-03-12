@@ -420,7 +420,7 @@ unsigned CollisionDetector::boxAndBox(
 
     // We start assuming there is no contact
     real pen = REAL_MAX;
-    unsigned best = 0xffffff;
+    unsigned best = (~0);
 
     // Now we check each axes, returning if it gives us
     // a separating axis, and keeping track of the axis with
@@ -448,7 +448,7 @@ unsigned CollisionDetector::boxAndBox(
     CHECK_OVERLAP(one.getAxis(2) % two.getAxis(2), 14);
 
     // Make sure we've got a result.
-    assert(best != 0xffffff);
+    assert(best != (~0));
 
     // We now know there's a collision, and we know which
     // of the axes gave the smallest penetration. We now
