@@ -1,38 +1,63 @@
+
+
+# LINK FLAGS AND PLATFORM
+
+# Linux (default)
+LDFLAGS = -lGL -lGLU -lglut
+
+# OS X
+ARCH = $(shell uname)
+ifeq ($(ARCH),Darwin)
+        LDFLAGS = -framework GLUT -framework OpenGL -framework Cocoa
+endif
+
+rm=rm -f
+AR=ar cq
+RANLIB=ranlib
+
+
 # CYCLONEPHYSICS LIB
 CXXFLAGS=-O2 -I./include -fPIC
 CYCLONEOBJS=src/body.o src/collide_coarse.o src/collide_fine.o src/contacts.o src/core.o src/fgen.o src/joints.o src/particle.o src/pcontacts.o src/pfgen.o src/plinks.o src/pworld.o src/random.o src/world.o
 
 
 # DEMO FILES
-SOURCES=body
-LDFLAGS=-lGL -lglut -lGLU -L./Debug
+
+LIBNAME=libcyclone.a
+CYCLONELIB=./lib/linux/$(LIBNAME)
+
 DEMO_CPP=./src/demos/app.cpp ./src/demos/timing.cpp ./src/demos/main.cpp
-CYCLONELIB=./lib/libcyclone.so
 
 DEMOS=ballistic bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
 
 
 
-all:	libcyclone.so $(DEMOS)
+# BUILD COMMANDS
 
-libcyclone.so: $(CYCLONEOBJS)
-	$(CXX) $(CYCLONEOBJS) -shared -dynamiclib -o lib/libcyclone.so
+all:	$(CYCLONELIB) $(DEMOS)
+
+
+$(CYCLONELIB): $(CYCLONEOBJS)
+	$(rm) $@
+	$(AR) $@ $(CYCLONEOBJS)
+	$(RANLIB) $@
+
 
 $(DEMOS): 
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o ./bin/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o ./bin/linux/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp
 
 
 clean:
-	rm -f src/*.o lib/libcyclone.so
-	rm -f 		\
-	./bin/fireworks		\
-	./bin/fracture		\
-	./bin/flightsim		\
-	./bin/bridge		\
-	./bin/sailboat		\
-	./bin/explosion		\
-	./bin/ballistic		\
-	./bin/platform		\
-	./bin/bigballistic	\
-	./bin/blob		\
-	./bin/ragdoll
+	$(rm) src/*.o lib/linux/libcyclone.a
+	$(rm)		\
+	./bin/linux/fireworks		\
+	./bin/linux/fracture		\
+	./bin/linux/flightsim		\
+	./bin/linux/bridge		\
+	./bin/linux/sailboat		\
+	./bin/linux/explosion		\
+	./bin/linux/ballistic		\
+	./bin/linux/platform		\
+	./bin/linux/bigballistic	\
+	./bin/linux/blob		\
+	./bin/linux/ragdoll
