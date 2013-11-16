@@ -64,7 +64,7 @@ namespace cyclone {
          * The contact resolver object needs access into the contacts to
          * set and effect the contact.
          */
-        friend ContactResolver;
+        friend class ContactResolver;
 
     public:
         /**
