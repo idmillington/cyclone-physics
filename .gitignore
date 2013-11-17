@@ -1,4 +1,10 @@
 
+# Linux Object Files
+src/*.o
+lib/linux/*
+bin/linux/*
+
+
 # Prebuilt OSX Executables
 lib/osx64/*
 bin/osx64/*

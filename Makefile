@@ -11,6 +11,7 @@ ifeq ($(ARCH),Darwin)
         LDFLAGS = -framework GLUT -framework OpenGL -framework Cocoa
 endif
 
+mkdir=mkdir -p
 rm=rm -f
 AR=ar cq
 RANLIB=ranlib
@@ -31,10 +32,19 @@ DEMO_CPP=./src/demos/app.cpp ./src/demos/timing.cpp ./src/demos/main.cpp
 DEMOS=ballistic bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
 
 
+# OUTPUT DIRECTORIES
+
+OUTDIRS=./lib/linux ./bin/linux
+
+
 
 # BUILD COMMANDS
 
-all:	$(CYCLONELIB) $(DEMOS)
+all:	out_dirs $(CYCLONELIB) $(DEMOS)
+
+
+out_dirs: 
+	$(mkdir) $(OUTDIRS)
 
 
 $(CYCLONELIB): $(CYCLONEOBJS)
