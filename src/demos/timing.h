@@ -104,7 +104,7 @@ private:
     // These are private to stop instances being created: use get().
     TimingData() {}
     TimingData(const TimingData &) {}
-    TimingData& operator=(const TimingData &) {}
+    TimingData& operator=(const TimingData &);
 };
 
 

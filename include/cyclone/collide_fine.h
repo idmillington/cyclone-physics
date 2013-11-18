@@ -44,8 +44,8 @@ namespace cyclone {
          * and intersection routines, so they should have
          * access to its data.
          */
-        friend IntersectionTests;
-        friend CollisionDetector;
+        friend class IntersectionTests;
+        friend class CollisionDetector;
 
         /**
          * The rigid body that is represented by this primitive.
