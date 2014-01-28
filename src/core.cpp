@@ -44,7 +44,7 @@ real cyclone::getSleepEpsilon()
 
 real Matrix4::getDeterminant() const
 {
-    return data[8]*data[5]*data[2]+
+    return -data[8]*data[5]*data[2]+
         data[4]*data[9]*data[2]+
         data[8]*data[1]*data[6]-
         data[0]*data[9]*data[6]-

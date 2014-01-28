@@ -684,7 +684,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
             // distance and add the vertex location.
             contact->contactPoint = plane.direction;
             contact->contactPoint *= (vertexDistance-plane.offset);
-            contact->contactPoint = vertexPos;
+            contact->contactPoint += vertexPos;
             contact->contactNormal = plane.direction;
             contact->penetration = plane.offset - vertexDistance;
 
