@@ -288,7 +288,7 @@ namespace cyclone {
         }
         if (children[1]) {
             children[1]->parent = NULL;
-            delete children[0];
+            delete children[1];
         }
     }
 
