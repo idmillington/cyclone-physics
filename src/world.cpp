@@ -11,7 +11,11 @@
  */
 
 #include <cstdlib>
-#include <cyclone/world.h>
+#ifdef __gnu_linux__
+    #include "../include/cyclone/world.h"
+#else
+    #include <cyclone/world.h>
+#endif
 
 using namespace cyclone;
 

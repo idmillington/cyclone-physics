@@ -12,7 +12,11 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <cyclone/random.h>
+#ifdef __gnu_linux__
+    #include "../include/cyclone/random.h"
+#else
+    #include <cyclone/random.h>
+#endif
 
 using namespace cyclone;
 

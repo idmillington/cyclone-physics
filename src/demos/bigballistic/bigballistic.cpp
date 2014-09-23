@@ -10,8 +10,14 @@
  * software licence.
  */
 
-#include <gl/glut.h>
-#include <cyclone/cyclone.h>
+#ifdef __gnu_linux__
+    #include <GL/glut.h>
+    #include "../../../include/cyclone/cyclone.h"
+#else
+    #include <gl/glut.h>
+    #include <cyclone/cyclone.h>
+#endif
+
 #include "../app.h"
 #include "../timing.h"
 
@@ -219,7 +225,7 @@ public:
 
     /** Sets up the rendering. */
     virtual void initGraphics();
-    
+
     /** Display world. */
     virtual void display();
 
@@ -232,7 +238,7 @@ public:
 
 // Method definitions
 BigBallisticDemo::BigBallisticDemo()
-: 
+:
 RigidBodyApplication(),
 currentShotType(LASER)
 {
@@ -328,7 +334,7 @@ void BigBallisticDemo::updateObjects(cyclone::real duration)
 void BigBallisticDemo::display()
 {
     const static GLfloat lightPosition[] = {-1,1,0,0};
-    
+
     // Clear the viewport and set the camera direction
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();

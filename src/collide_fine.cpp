@@ -10,8 +10,11 @@
  * software licence.
  */
 
-
-#include <cyclone/collide_fine.h>
+#ifdef __gnu_linux__
+    #include "../include/cyclone/collide_fine.h"
+#else
+    #include <cyclone/collide_fine.h>
+#endif
 #include <memory.h>
 #include <assert.h>
 #include <cstdlib>

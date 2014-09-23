@@ -10,7 +10,11 @@
  * software licence.
  */
 
-#include <gl/glut.h>
+#ifdef __gnu_linux__
+    #include <GL/glut.h>
+#else
+    #include <gl/glut.h>
+#endif
 
 // Include the general application structure.
 #include "app.h"

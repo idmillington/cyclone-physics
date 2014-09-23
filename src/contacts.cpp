@@ -10,7 +10,11 @@
  * software licence.
  */
 
-#include <cyclone/contacts.h>
+#ifdef __gnu_linux__
+    #include "../include/cyclone/contacts.h"
+#else
+    #include <cyclone/contacts.h>
+#endif
 #include <memory.h>
 #include <assert.h>
 
@@ -154,7 +158,7 @@ void Contact::calculateDesiredDeltaVelocity(real duration)
 
     if (body[0]->getAwake())
     {
-	velocityFromAcc+= 
+	velocityFromAcc+=
 	    body[0]->getLastFrameAcceleration() * duration * contactNormal;
     }
 

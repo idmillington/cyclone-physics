@@ -18,7 +18,7 @@ RANLIB=ranlib
 
 
 # CYCLONEPHYSICS LIB
-CXXFLAGS=-O2 -I./include -fPIC
+CXXFLAGS=-O2 -fPIC
 CYCLONEOBJS=src/body.o src/collide_coarse.o src/collide_fine.o src/contacts.o src/core.o src/fgen.o src/joints.o src/particle.o src/pcontacts.o src/pfgen.o src/plinks.o src/pworld.o src/random.o src/world.o
 
 
@@ -43,7 +43,7 @@ OUTDIRS=./lib/linux ./bin/linux
 all:	out_dirs $(CYCLONELIB) $(DEMOS)
 
 
-out_dirs: 
+out_dirs:
 	$(mkdir) $(OUTDIRS)
 
 
@@ -53,8 +53,8 @@ $(CYCLONELIB): $(CYCLONEOBJS)
 	$(RANLIB) $@
 
 
-$(DEMOS): 
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o ./bin/linux/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp
+$(DEMOS):
+	$(CXX) $(CXXFLAGS) -o ./bin/linux/$@ $(DEMO_CPP) $(CYCLONELIB) ./src/demos/$@/$@.cpp $(LDFLAGS)
 
 
 clean:

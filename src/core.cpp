@@ -10,8 +10,11 @@
  * software licence.
  */
 
-
-#include <cyclone/core.h>
+#ifdef __gnu_linux__
+    #include "../include/cyclone/core.h"
+#else
+    #include <cyclone/core.h>
+#endif
 
 using namespace cyclone;
 

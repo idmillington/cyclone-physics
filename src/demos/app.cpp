@@ -10,7 +10,11 @@
  * software licence.
  */
 #include <cstring>
-#include <gl/glut.h>
+#ifdef __gnu_linux__
+    #include <GL/glut.h>
+#else
+    #include <gl/glut.h>
+#endif
 #include "app.h"
 #include "timing.h"
 
