@@ -1,14 +1,9 @@
-
-
-# LINK FLAGS AND PLATFORM
-
-# Linux (default)
-LDFLAGS = -lGL -lGLU -lglut
-
 # OS X
 ARCH = $(shell uname)
 ifeq ($(ARCH),Darwin)
         LDFLAGS = -framework GLUT -framework OpenGL -framework Cocoa
+else
+        $(error This OS is not Mac OSX. Aborting. Please run linuxmake.mk)
 endif
 
 mkdir=mkdir -p
