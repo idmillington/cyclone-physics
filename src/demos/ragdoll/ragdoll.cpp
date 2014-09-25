@@ -10,8 +10,13 @@
  * software licence.
  */
 
-#include <gl/glut.h>
-#include <cyclone/cyclone.h>
+#ifdef __gnu_linux__
+    #include <GL/glut.h>
+    #include "../../../include/cyclone/cyclone.h"
+#else
+    #include <gl/glut.h>
+    #include <cyclone/cyclone.h>
+#endif
 #include "../app.h"
 #include "../timing.h"
 

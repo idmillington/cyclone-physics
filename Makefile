@@ -29,7 +29,8 @@ CYCLONELIB=./lib/linux/$(LIBNAME)
 
 DEMO_CPP=./src/demos/app.cpp ./src/demos/timing.cpp ./src/demos/main.cpp
 
-DEMOS=ballistic bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
+DEMOS=ballistic
+#bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
 
 
 # OUTPUT DIRECTORIES
