@@ -3,7 +3,7 @@ ARCH = $(shell uname)
 ifeq ($(ARCH),Darwin)
         LDFLAGS = -framework GLUT -framework OpenGL -framework Cocoa
 else
-        $(error This OS is not Mac OSX. Aborting. Please run linuxmake.mk)
+        #$(error This OS is not Mac OSX. Aborting. Please run linuxmake.mk)
 endif
 
 mkdir=mkdir -p
@@ -24,8 +24,7 @@ CYCLONELIB=./lib/linux/$(LIBNAME)
 
 DEMO_CPP=./src/demos/app.cpp ./src/demos/timing.cpp ./src/demos/main.cpp
 
-DEMOS=ballistic
-#bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
+DEMOS=ballistic bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
 
 
 # OUTPUT DIRECTORIES
