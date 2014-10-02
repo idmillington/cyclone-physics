@@ -10,7 +10,7 @@
  * software licence.
  */
 
-#include <cstdlib>
+#include <cstddef>
 #include <cyclone/pworld.h>
 
 using namespace cyclone;

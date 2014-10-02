@@ -10,7 +10,6 @@
  * software licence.
  */
 
-
 #include <cyclone/body.h>
 #include <memory.h>
 #include <assert.h>
@@ -550,7 +549,7 @@ void RigidBody::addForceAtBodyPoint(const Vector3 &force,
     // Convert to coordinates relative to center of mass.
     Vector3 pt = getPointInWorldSpace(point);
     addForceAtPoint(force, pt);
-    
+
 }
 
 void RigidBody::addForceAtPoint(const Vector3 &force,

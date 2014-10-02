@@ -21,6 +21,7 @@
 #define CYCLONE_COLLISION_COARSE_H
 
 #include <vector>
+#include <cstddef>
 #include "contacts.h"
 
 namespace cyclone {

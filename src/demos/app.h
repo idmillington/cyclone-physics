@@ -136,12 +136,12 @@ public:
      */
     virtual void mouseDrag(int x, int y);
 
-    // These are helper functions that can be used by an application 
+    // These are helper functions that can be used by an application
     // to render things.
 
     /**
      * Renders the given text to the given x,y location (in screen space)
-     * on the window. This is used to pass status information to the 
+     * on the window. This is used to pass status information to the
      * application.
      */
     void renderText(float x, float y, const char *text, void* font=NULL);
@@ -172,8 +172,8 @@ public:
 };
 
 /**
- * This application adds additional functionality used in many of the 
- * demos. This includes the ability to track contacts (for rigid bodies) 
+ * This application adds additional functionality used in many of the
+ * demos. This includes the ability to track contacts (for rigid bodies)
  * and move the camera around.
  */
  class RigidBodyApplication : public Application
@@ -207,7 +207,7 @@ public:
     bool pauseSimulation;
 
     /** Pauses the simulation after the next frame automatically */
-    bool autoPauseSimulation; 
+    bool autoPauseSimulation;
 
     /** Processes the contact generation code. */
     virtual void generateContacts() = 0;
@@ -215,8 +215,8 @@ public:
     /** Processes the objects in the simulation forward in time. */
     virtual void updateObjects(cyclone::real duration) = 0;
 
-    /** 
-     * Finishes drawing the frame, adding debugging information 
+    /**
+     * Finishes drawing the frame, adding debugging information
      * as needed.
      */
     void drawDebug();
@@ -225,14 +225,14 @@ public:
     virtual void reset() = 0;
 
 public:
-    /** 
+    /**
      * Creates a new application object.
      */
     RigidBodyApplication();
 
     /** Display the application. */
     virtual void display();
-    
+
     /** Update the objects. */
     virtual void update();
 

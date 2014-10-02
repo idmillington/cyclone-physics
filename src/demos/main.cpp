@@ -10,7 +10,8 @@
  * software licence.
  */
 
-#include <gl/glut.h>
+// Include appropriate OpenGL headers.
+#include "ogl_headers.h"
 
 // Include the general application structure.
 #include "app.h"

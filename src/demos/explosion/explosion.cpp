@@ -10,8 +10,8 @@
  * software licence.
  */
 
-#include <gl/glut.h>
 #include <cyclone/cyclone.h>
+#include "../ogl_headers.h"
 #include "../app.h"
 #include "../timing.h"
 

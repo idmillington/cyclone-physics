@@ -10,8 +10,8 @@
  * software licence.
  */
 
-#include <gl/glut.h>
 #include <cyclone/cyclone.h>
+#include "../ogl_headers.h"
 #include "../app.h"
 #include "../timing.h"
 
@@ -24,7 +24,7 @@
 
 
 /**
- * Platforms are two dimensional: lines on which the 
+ * Platforms are two dimensional: lines on which the
  * particles can rest. Platforms are also contact generators for the physics.
  */
 class Platform : public cyclone::ParticleContactGenerator
@@ -34,17 +34,17 @@ public:
     cyclone::Vector3 end;
 
     /**
-     * Holds a pointer to the particles we're checking for collisions with. 
+     * Holds a pointer to the particles we're checking for collisions with.
      */
     cyclone::Particle *particles;
 
     virtual unsigned addContact(
-        cyclone::ParticleContact *contact, 
+        cyclone::ParticleContact *contact,
         unsigned limit
         ) const;
 };
 
-unsigned Platform::addContact(cyclone::ParticleContact *contact, 
+unsigned Platform::addContact(cyclone::ParticleContact *contact,
                               unsigned limit) const
 {
     const static cyclone::real restitution = 0.0f;
@@ -53,7 +53,7 @@ unsigned Platform::addContact(cyclone::ParticleContact *contact,
     for (unsigned i = 0; i < BLOB_COUNT; i++)
     {
         if (used >= limit) break;
-        
+
         // Check for penetration
         cyclone::Vector3 toParticle = particles[i].getPosition() - start;
         cyclone::Vector3 lineDirection = end - start;
@@ -74,7 +74,7 @@ unsigned Platform::addContact(cyclone::ParticleContact *contact,
                 used ++;
                 contact ++;
             }
-            
+
         }
         else if (projected >= platformSqLength)
         {
@@ -89,20 +89,20 @@ unsigned Platform::addContact(cyclone::ParticleContact *contact,
                 contact->particle[0] = particles + i;
                 contact->particle[1] = 0;
                 contact->penetration = BLOB_RADIUS - toParticle.magnitude();
-                used ++;            
+                used ++;
                 contact ++;
             }
         }
         else
         {
             // the blob is nearest to the middle.
-            cyclone::real distanceToPlatform = 
+            cyclone::real distanceToPlatform =
                 toParticle.squareMagnitude() -
                 projected*projected / platformSqLength;
             if (distanceToPlatform < BLOB_RADIUS*BLOB_RADIUS)
             {
                 // We have a collision
-                cyclone::Vector3 closestPoint = 
+                cyclone::Vector3 closestPoint =
                     start + lineDirection*(projected/platformSqLength);
 
                 contact->contactNormal = (particles[i].getPosition()-closestPoint).unit();
@@ -126,7 +126,7 @@ class BlobForceGenerator : public cyclone::ParticleForceGenerator
 {
 public:
     /**
-    * Holds a pointer to the particles we might be attracting. 
+    * Holds a pointer to the particles we might be attracting.
     */
     cyclone::Particle *particles;
 
@@ -139,7 +139,7 @@ public:
      * The maximum force used to pull particles together.
      */
     cyclone::real maxAttraction;
-    
+
     /**
      * The separation between particles where there is no force.
      */
@@ -158,18 +158,18 @@ public:
     unsigned maxFloat;
 
     /**
-     * The separation between particles after which they 'break' apart and 
+     * The separation between particles after which they 'break' apart and
      * there is no force.
      */
     cyclone::real maxDistance;
 
     virtual void updateForce(
-        cyclone::Particle *particle, 
+        cyclone::Particle *particle,
         cyclone::real duration
         );
 };
 
-void BlobForceGenerator::updateForce(cyclone::Particle *particle, 
+void BlobForceGenerator::updateForce(cyclone::Particle *particle,
                                       cyclone::real duration)
 {
     unsigned joinCount = 0;
@@ -179,7 +179,7 @@ void BlobForceGenerator::updateForce(cyclone::Particle *particle,
         if (particles + i == particle) continue;
 
         // Work out the separation distance
-        cyclone::Vector3 separation = 
+        cyclone::Vector3 separation =
             particles[i].getPosition() - particle->getPosition();
         separation.z = 0.0f;
         cyclone::real distance = separation.magnitude();
@@ -196,8 +196,8 @@ void BlobForceGenerator::updateForce(cyclone::Particle *particle,
         else if (distance > maxNaturalDistance && distance < maxDistance)
         {
             // Use an attraction force.
-            distance = 
-                (distance - maxNaturalDistance) / 
+            distance =
+                (distance - maxNaturalDistance) /
                 (maxDistance - maxNaturalDistance);
             particle->addForce(
                 separation.unit() * distance * maxAttraction
@@ -275,7 +275,7 @@ world(PLATFORM_COUNT+BLOB_COUNT, PLATFORM_COUNT)
     blobForceGenerator.maxDistance = BLOB_RADIUS * 2.5f;
     blobForceGenerator.maxFloat = 2;
     blobForceGenerator.floatHead = 8.0f;
-    
+
     // Create the platforms
     platforms = new Platform[PLATFORM_COUNT];
     for (unsigned i = 0; i < PLATFORM_COUNT; i++)
@@ -294,7 +294,7 @@ world(PLATFORM_COUNT+BLOB_COUNT, PLATFORM_COUNT)
         platforms[i].end.x += r.randomBinomial(2.0f);
         platforms[i].end.y += r.randomBinomial(2.0f);
 
-        // Make sure the platform knows which particles it 
+        // Make sure the platform knows which particles it
         // should collide with.
         platforms[i].particles = blobs;
         world.getContactGenerators().push_back(platforms + i);
@@ -376,7 +376,7 @@ void BlobDemo::display()
         glutSolidSphere(BLOB_RADIUS, 12, 12);
         glPopMatrix();
     }
-    
+
     cyclone::Vector3 p = blobs[0].getPosition();
     cyclone::Vector3 v = blobs[0].getVelocity() * 0.05f;
     v.trim(BLOB_RADIUS*0.5f);
