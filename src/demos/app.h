@@ -11,11 +11,7 @@
  */
 #include <cstdlib>
 
-#ifdef __gnu_linux__
-    #include "../../include/cyclone/cyclone.h"
-#else
-    #include <cyclone/cyclone.h>
-#endif
+#include <cyclone/cyclone.h>
 
 /**
  * An application is the base class for all demonstration progams.

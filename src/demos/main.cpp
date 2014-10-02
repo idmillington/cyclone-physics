@@ -10,11 +10,8 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include <GL/glut.h>
-#else
-    #include <gl/glut.h>
-#endif
+// Include appropriate OpenGL headers.
+#include "ogl_headers.h"
 
 // Include the general application structure.
 #include "app.h"
