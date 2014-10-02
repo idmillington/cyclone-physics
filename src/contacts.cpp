@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/contacts.h"
-#else
-    #include <cyclone/contacts.h>
-#endif
+#include <cyclone/contacts.h>
 #include <memory.h>
 #include <assert.h>
 

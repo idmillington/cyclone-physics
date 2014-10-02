@@ -26,7 +26,7 @@ CYCLONEFILES = ./src/body.cpp ./src/collide_coarse.cpp ./src/collide_fine.cpp ./
 all: $(DEMOLIST)
 
 $(DEMOLIST):
-	g++ -O2 $(DEMOCOREFILES) $(CYCLONEFILES) $(DEMOPATH)$@/$@.cpp -o $@ $(LDFLAGS) 
+	g++ -O2 -Iinclude $(DEMOCOREFILES) $(CYCLONEFILES) $(DEMOPATH)$@/$@.cpp -o $@ $(LDFLAGS) 
 
 clean:
 	rm $(DEMOLIST)

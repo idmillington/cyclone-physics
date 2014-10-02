@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/pcontacts.h"
-#else
-    #include <cyclone/pcontacts.h>
-#endif
+#include <cyclone/pcontacts.h>
 
 using namespace cyclone;
 

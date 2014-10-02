@@ -13,7 +13,7 @@ RANLIB=ranlib
 
 
 # CYCLONEPHYSICS LIB
-CXXFLAGS=-O2 -fPIC
+CXXFLAGS=-O2 -Iinclude -fPIC
 CYCLONEOBJS=src/body.o src/collide_coarse.o src/collide_fine.o src/contacts.o src/core.o src/fgen.o src/joints.o src/particle.o src/pcontacts.o src/pfgen.o src/plinks.o src/pworld.o src/random.o src/world.o
 
 

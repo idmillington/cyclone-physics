@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/pfgen.h"
-#else
-    #include <cyclone/pfgen.h>
-#endif
+#include <cyclone/pfgen.h>
 
 using namespace cyclone;
 

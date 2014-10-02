@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/body.h"
-#else
-    #include <cyclone/body.h>
-#endif
+#include <cyclone/body.h>
 #include <memory.h>
 #include <assert.h>
 

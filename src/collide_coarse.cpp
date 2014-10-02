@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/collide_coarse.h"
-#else
-    #include <cyclone/collide_coarse.h>
-#endif
+#include <cyclone/collide_coarse.h>
 
 using namespace cyclone;
 

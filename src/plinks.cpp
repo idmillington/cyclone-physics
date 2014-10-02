@@ -10,11 +10,7 @@
  * software licence.
  */
 
-#ifdef __gnu_linux__
-    #include "../include/cyclone/plinks.h"
-#else
-    #include <cyclone/plinks.h>
-#endif
+#include <cyclone/plinks.h>
 
 using namespace cyclone;
 

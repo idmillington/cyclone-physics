@@ -10,12 +10,8 @@
  * software licence.
  */
 
-#include <cstdlib>
-#ifdef __gnu_linux__
-    #include "../include/cyclone/pworld.h"
-#else
-    #include <cyclone/pworld.h>
-#endif
+#include <cstddef>
+#include <cyclone/pworld.h>
 
 using namespace cyclone;
 

@@ -11,11 +11,7 @@
  */
 
 #include <assert.h>
-#ifdef __gnu_linux__
-    #include "../include/cyclone/particle.h"
-#else
-    #include <cyclone/particle.h>
-#endif
+#include <cyclone/particle.h>
 
 using namespace cyclone;
 
