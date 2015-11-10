@@ -15,96 +15,96 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\body.cpp">
+    <ClCompile Include="..\..\src\body.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\collide_coarse.cpp">
+    <ClCompile Include="..\..\src\collide_coarse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\collide_fine.cpp">
+    <ClCompile Include="..\..\src\collide_fine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\contacts.cpp">
+    <ClCompile Include="..\..\src\contacts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\core.cpp">
+    <ClCompile Include="..\..\src\core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\fgen.cpp">
+    <ClCompile Include="..\..\src\fgen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\joints.cpp">
+    <ClCompile Include="..\..\src\joints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\particle.cpp">
+    <ClCompile Include="..\..\src\particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\pcontacts.cpp">
+    <ClCompile Include="..\..\src\pcontacts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\pfgen.cpp">
+    <ClCompile Include="..\..\src\pfgen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\plinks.cpp">
+    <ClCompile Include="..\..\src\plinks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\pworld.cpp">
+    <ClCompile Include="..\..\src\pworld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\random.cpp">
+    <ClCompile Include="..\..\src\random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\world.cpp">
+    <ClCompile Include="..\..\src\world.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\cyclone\body.h">
+    <ClInclude Include="..\..\include\cyclone\body.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\collide_coarse.h">
+    <ClInclude Include="..\..\include\cyclone\collide_coarse.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\collide_fine.h">
+    <ClInclude Include="..\..\include\cyclone\collide_fine.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\contacts.h">
+    <ClInclude Include="..\..\include\cyclone\contacts.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\core.h">
+    <ClInclude Include="..\..\include\cyclone\core.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\cyclone.h">
+    <ClInclude Include="..\..\include\cyclone\cyclone.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\fgen.h">
+    <ClInclude Include="..\..\include\cyclone\fgen.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\joints.h">
+    <ClInclude Include="..\..\include\cyclone\joints.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\particle.h">
+    <ClInclude Include="..\..\include\cyclone\particle.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\pcontacts.h">
+    <ClInclude Include="..\..\include\cyclone\pcontacts.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\pfgen.h">
+    <ClInclude Include="..\..\include\cyclone\pfgen.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\plinks.h">
+    <ClInclude Include="..\..\include\cyclone\plinks.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\precision.h">
+    <ClInclude Include="..\..\include\cyclone\precision.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\pworld.h">
+    <ClInclude Include="..\..\include\cyclone\pworld.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\random.h">
+    <ClInclude Include="..\..\include\cyclone\random.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\cyclone\world.h">
+    <ClInclude Include="..\..\include\cyclone\world.h">
       <Filter>Header Files\cyclone</Filter>
     </ClInclude>
   </ItemGroup>
