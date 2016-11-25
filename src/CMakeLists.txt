@@ -8,7 +8,6 @@ include_directories ("${CMAKE_SOURCE_DIR}/include")
 
 file(GLOB HEADERS
 	${CMAKE_SOURCE_DIR}/include/cyclone/*.h
-	${CMAKE_SOURCE_DIR}/include/gl/*.h
 )
 
 file(GLOB SOURCES

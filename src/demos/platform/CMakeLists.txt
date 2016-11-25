@@ -2,7 +2,7 @@ set (PROJECT platform)
 
 project (${PROJECT})
 
-include_directories (COMMON_DEMO_INCLUDE)
+include_directories(${COMMON_DEMO_INCLUDE})
 
 file(GLOB HEADERS
 	*.h)

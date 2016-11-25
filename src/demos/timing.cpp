@@ -16,7 +16,7 @@
 // Hold internal timing data for the performance counter.
 static bool qpcFlag;
 
-#if (__APPLE__ || __unix)
+#if (__APLPE__ || __unix)
 	#define TIMING_UNIX	1
 
 	#include <stdlib.h>
@@ -69,9 +69,25 @@ unsigned TimingData::getTime()
 #if TIMING_WINDOWS
 unsigned long systemClock()
 {
+#if _MSC_VER
+#  ifdef _M_IX86
     __asm {
-    	rdtsc;
+        rdtsc;
     }
+#  else // _M_X64
+    return __rdtsc();
+#  endif
+#else
+#  ifdef __i386__
+       unsigned long long int x;
+    __asm__ volatile (".byte 0x0f, 0x31" : "=A" (x));
+    return x;
+#  else // __x86_64__
+    unsigned hi, lo;
+    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+    return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
+#  endif
+#endif // _MSC_VER
 }
 #endif
 
