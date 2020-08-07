@@ -118,7 +118,7 @@ void ParticleBuoyancy::updateForce(Particle* particle, real duration)
 
     // Otherwise we are partly submerged
     force.y = liquidDensity * volume *
-        (depth - maxDepth - waterHeight) / 2 * maxDepth;
+        (depth - maxDepth - waterHeight) / (2 * maxDepth);
     particle->addForce(force);
 }
 
