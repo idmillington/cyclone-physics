@@ -10,6 +10,7 @@
  * software licence.
  */
 #include <cstring>
+#include <cstdio>
 #include "ogl_headers.h"
 #include "app.h"
 #include "timing.h"
@@ -274,6 +275,15 @@ void RigidBodyApplication::drawDebug()
     }
 
     glEnd();
+
+    float duration = (float)TimingData::get().lastFrameDuration * 0.001f;
+    if (duration > 0.0f)
+    {
+        char fps_buf[16];
+        std::snprintf(fps_buf, sizeof(fps_buf), "FPS: %4d", (unsigned)(1.f/duration));
+        glColor3f(0,1,0);
+        renderText(10.0f, 34.0f, fps_buf);
+    }
 }
 
 void RigidBodyApplication::mouse(int button, int state, int x, int y)
