@@ -83,7 +83,7 @@ void Contact::calculateContactBasis()
         contactTangent[0].z = -contactNormal.x*s;
 
         // The new Y-axis is at right angles to the new X- and Z- axes
-        contactTangent[1].x = contactNormal.y*contactTangent[0].x;
+        contactTangent[1].x = contactNormal.y*contactTangent[0].z;
         contactTangent[1].y = contactNormal.z*contactTangent[0].x -
             contactNormal.x*contactTangent[0].z;
         contactTangent[1].z = -contactNormal.y*contactTangent[0].x;
