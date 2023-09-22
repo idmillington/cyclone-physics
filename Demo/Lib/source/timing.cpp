@@ -11,7 +11,7 @@
  */
 
 #include <chrono>
-#include "timing.h"
+#include "cyclonedemo/timing.h"
 
 static std::chrono::high_resolution_clock::time_point initTimePoint;
 

@@ -11,13 +11,13 @@
  */
 
 // Include appropriate OpenGL headers.
-#include "ogl_headers.h"
+#include "cyclonedemo/ogl_headers.h"
 
 // Include the general application structure.
-#include "app.h"
+#include "cyclonedemo/app.h"
 
 // Include the timing functions
-#include "timing.h"
+#include "cyclonedemo/timing.h"
 
 // Forward declaration of the function that will return the
 // application object for this particular demo. This should be

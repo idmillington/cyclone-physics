@@ -10,9 +10,9 @@
  * software licence.
  */
 #include <cstring>
-#include "ogl_headers.h"
-#include "app.h"
-#include "timing.h"
+#include "cyclonedemo/ogl_headers.h"
+#include "cyclonedemo/app.h"
+#include "cyclonedemo/timing.h"
 
 void Application::initGraphics()
 {

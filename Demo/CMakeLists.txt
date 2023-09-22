@@ -2,4 +2,4 @@
 add_subdirectory(Lib)
 
 # Ballistic demo
-# add_subdirectory(Ballistic)
+add_subdirectory(Ballistic)
