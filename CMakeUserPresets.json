@@ -1,9 +1,0 @@
-{
-    "version": 4,
-    "vendor": {
-        "conan": {}
-    },
-    "include": [
-        "C:\\Users\\Agito\\Projects\\cyclone-physics\\build\\generators\\CMakePresets.json"
-    ]
-}
