@@ -109,7 +109,7 @@ namespace cyclone {
          * Tracks how long the explosion has been in operation, used
          * for time-sensitive effects.
          */
-        real timePassed;
+        real timePassed = 0.f;
 
     public:
         // Properties of the explosion, these are public because
@@ -128,20 +128,20 @@ namespace cyclone {
          * The radius up to which objects implode in the first stage
          * of the explosion.
          */
-        real implosionMaxRadius;
+        real implosionMaxRadius = 0.f;
 
         /**
          * The radius within which objects don't feel the implosion
          * force. Objects near to the detonation aren't sucked in by
          * the air implosion.
          */
-        real implosionMinRadius;
+        real implosionMinRadius = 0.f;
 
         /**
          * The length of time that objects spend imploding before the
          * concussion phase kicks in.
          */
-        real implosionDuration;
+        real implosionDuration = 0.f;
 
         /**
          * The maximal force that the implosion can apply. This should
@@ -149,7 +149,7 @@ namespace cyclone {
          * through the detonation point and out the other side before
          * the concussion wave kicks in.
          */
-        real implosionForce;
+        real implosionForce = 0.f;
 
         /**
          * The speed that the shock wave is traveling, this is related
@@ -157,14 +157,14 @@ namespace cyclone {
          *
          * thickness >= speed * minimum frame duration
          */
-        real shockwaveSpeed;
+        real shockwaveSpeed = 0.f;
 
         /**
          * The shock wave applies its force over a range of distances,
          * this controls how thick. Faster waves require larger
          * thicknesses.
          */
-        real shockwaveThickness;
+        real shockwaveThickness = 0.f;
 
         /**
          * This is the force that is applied at the very centre of the
@@ -174,30 +174,30 @@ namespace cyclone {
          * force. Objects moving in towards the centre get
          * proportionally more force.
          */
-         real peakConcussionForce;
+         real peakConcussionForce = 0.f;
 
          /**
           * The length of time that the concussion wave is active.
           * As the wave nears this, the forces it applies reduces.
           */
-         real concussionDuration;
+         real concussionDuration = 0.f;
 
          /**
           * This is the peak force for stationary objects in
           * the centre of the convection chimney. Force calculations
           * for this value are the same as for peakConcussionForce.
           */
-         real peakConvectionForce;
+         real peakConvectionForce = 0.f;
 
          /**
           * The radius of the chimney cylinder in the xz plane.
           */
-         real chimneyRadius;
+         real chimneyRadius = 0.f;
 
          /**
           * The maximum height of the chimney.
           */
-         real chimneyHeight;
+         real chimneyHeight = 0.f;
 
          /**
           * The length of time the convection chimney is active. Typically
@@ -205,7 +205,7 @@ namespace cyclone {
           * from the explosion outlives the shock wave and implosion
           * itself.
           */
-         real convectionDuration;
+         real convectionDuration = 0.f;
 
     public:
         /**
