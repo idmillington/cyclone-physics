@@ -1,4 +1,4 @@
-# Common demo library
+# Common library for demos
 add_subdirectory(Lib)
 
 # Demos
@@ -10,3 +10,6 @@ add_subdirectory(Explosion)
 add_subdirectory(Fireworks)
 add_subdirectory(FlightSim)
 add_subdirectory(Fracture)
+add_subdirectory(Platform)
+add_subdirectory(Ragdoll)
+add_subdirectory(SailBoat)

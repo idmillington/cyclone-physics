@@ -18,6 +18,9 @@ find_package(fmtlog REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(catch2 REQUIRED)
 
+# Physics library
 add_subdirectory(Lib)
+# Unit tests
 add_subdirectory(Test)
-add_subdirectory(Demos)
+# Demos
+add_subdirectory(Demo)
