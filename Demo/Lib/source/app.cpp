@@ -55,28 +55,30 @@ void Application::update()
     glutPostRedisplay();
 }
 
-void Application::key(unsigned char key)
+void Application::key(unsigned char /*key*/)
 {
+    // Default do nothing
 }
 
 
-void Application::resize(int width, int height)
+void Application::resize(int w, int h)
 {
     // Avoid the divide by zero.
-    if (height <= 0) height = 1;
+    if (h <= 0) h = 1;
 
     // Set the internal variables and update the view
-    Application::width = width;
-    Application::height = height;
+    width = w;
+    height = h;
     glViewport(0, 0, width, height);
     setView();
 }
 
-void Application::mouse(int button, int state, int x, int y)
+void Application::mouse(int /*button*/, int /*state*/, int /*x*/, int /*y*/)
 {
+    // Default do nothing
 }
 
-void Application::mouseDrag(int x, int y)
+void Application::mouseDrag(int /*x*/, int /*y*/)
 {
 }
 
@@ -168,7 +170,7 @@ void MassAggregateApplication::display()
         cyclone::Particle *particle = *p;
         const cyclone::Vector3 &pos = particle->getPosition();
         glPushMatrix();
-        glTranslatef(pos.x, pos.y, pos.z);
+        glTranslatef((GLfloat)pos.x, (GLfloat)pos.y, (GLfloat)pos.z);
         glutSolidSphere(0.1f, 20, 10);
         glPopMatrix();
     }
@@ -267,16 +269,16 @@ void RigidBodyApplication::drawDebug()
         }
 
         cyclone::Vector3 vec = contacts[i].contactPoint;
-        glVertex3f(vec.x, vec.y, vec.z);
+        glVertex3f((GLfloat)vec.x, (GLfloat)vec.y, (GLfloat)vec.z);
 
         vec += contacts[i].contactNormal;
-        glVertex3f(vec.x, vec.y, vec.z);
+        glVertex3f((GLfloat)vec.x, (GLfloat)vec.y, (GLfloat)vec.z);
     }
 
     glEnd();
 }
 
-void RigidBodyApplication::mouse(int button, int state, int x, int y)
+void RigidBodyApplication::mouse(int /*button*/, int /*state*/, int x, int y)
 {
     // Set the position
     last_x = x;

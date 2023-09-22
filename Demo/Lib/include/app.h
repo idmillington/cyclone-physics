@@ -40,12 +40,12 @@ protected:
     /**
      * Holds the height of the application window.
      */
-    int height;
+    int height = 0;
 
     /**
      * Holds the current width of the application window.
      */
-    int width;
+    int width = 0;
 
 public:
     /**

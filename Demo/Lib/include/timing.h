@@ -25,33 +25,33 @@
 struct TimingData
 {
     /** The current render frame. This simply increments. */
-    unsigned frameNumber;
+    unsigned frameNumber = 0;
 
     /**
      * The timestamp when the last frame ended. Times are
      * given in milliseconds since some undefined time.
      */
-    unsigned lastFrameTimestamp;
+    uint64_t lastFrameTimestamp = 0;
 
     /**
      * The duration of the last frame in milliseconds.
      */
-    unsigned lastFrameDuration;
+    uint64_t lastFrameDuration = 0;
 
     /**
      * The clockstamp of the end of the last frame.
      */
-    unsigned long lastFrameClockstamp;
+    uint64_t lastFrameClockstamp = 0;
 
     /**
      * The duration of the last frame in clock ticks.
      */
-    unsigned long lastFrameClockTicks;
+    uint64_t lastFrameClockTicks = 0;
 
     /**
      * Keeps track of whether the rendering is paused.
      */
-    bool isPaused;
+    bool isPaused = false;
 
     // Calculated data
 
@@ -59,13 +59,13 @@ struct TimingData
      * This is a recency weighted average of the frame time, calculated
      * from frame durations.
      */
-    double averageFrameDuration;
+    double averageFrameDuration = 0.0;
 
     /**
      * The reciprocal of the average frame duration giving the mean
      * fps over a recency weighted average.
      */
-    float fps;
+    float fps = 0.f;
 
     /**
      * Gets the global timing data object.
@@ -89,22 +89,21 @@ struct TimingData
     static void deinit();
 
     /**
-     * Gets the global system time, in the best resolution possible.
-     * Timing is in milliseconds.
+     * Gets the global system time in milliseconds.
      */
-    static unsigned getTime();
+    static uint64_t getTime();
 
     /**
-     * Gets the clock ticks since process start.
+     * Gets the time in milliseconds since timer init.
      */
-    static unsigned long getClock();
+    static uint64_t getClock();
 
 
 private:
     // These are private to stop instances being created: use get().
     TimingData() {}
     TimingData(const TimingData &) {}
-    TimingData& operator=(const TimingData &);
+    TimingData& operator=(const TimingData &) {}
 };
 
 

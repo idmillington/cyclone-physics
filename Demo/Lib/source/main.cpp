@@ -84,7 +84,7 @@ void reshape(int width, int height)
 /**
  * Called when a key is pressed.
  */
-void keyboard(unsigned char key, int x, int y)
+void keyboard(unsigned char key, int /*x*/, int /*y*/)
 {
     // Note we omit passing on the x and y: they are rarely needed.
     app->key(key);
