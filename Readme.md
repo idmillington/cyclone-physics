@@ -41,3 +41,4 @@ cmake --build build/Release
 ## Screenshots - Demos
 
 ![Screenshot 1](./doc/ballistic_screenshot_1.jpg)
+![Screenshot 2](./doc/bigballistic_screenshot_1.jpg)
