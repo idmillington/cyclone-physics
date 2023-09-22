@@ -37,3 +37,7 @@ On Linux use
 cmake --build build/Debug
 cmake --build build/Release
 ```
+
+## Screenshots - Demos
+
+![Screenshot 1](./doc/ballistic_screenshot_1.jpg)
