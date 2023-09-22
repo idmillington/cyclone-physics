@@ -16,7 +16,7 @@ find_package(glm REQUIRED)
 find_package(FreeGLUT REQUIRED)
 find_package(fmtlog REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(catch2 REQUIRED)
+find_package(Catch2 REQUIRED)
 
 # Physics library
 add_subdirectory(Lib)

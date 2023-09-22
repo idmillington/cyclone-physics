@@ -386,7 +386,7 @@ void RigidBody::getOrientation(real matrix[9]) const
 
 void RigidBody::getTransform(Matrix4* transform) const
 {
-	memcpy(transform, &transformMatrix.data, sizeof(Matrix4));
+	memcpy(transform->data, &transformMatrix.data, sizeof(transform->data));
 }
 
 void RigidBody::getTransform(real matrix[16]) const
