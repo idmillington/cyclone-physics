@@ -48,6 +48,8 @@ protected:
     int width = 0;
 
 public:
+    virtual ~Application() = default;
+
     /**
      * Gets the title of the demo for the title bar of the window.
      *
@@ -154,7 +156,7 @@ class MassAggregateApplication : public Application
 {
 protected:
     cyclone::ParticleWorld world;
-    cyclone::Particle *particleArray;
+    cyclone::Particle *particleArray = nullptr;
     cyclone::GroundContacts groundContactGenerator;
 
 public:
@@ -229,6 +231,7 @@ public:
      * Creates a new application object.
      */
     RigidBodyApplication();
+    virtual ~RigidBodyApplication() = default;
 
     /** Display the application. */
     virtual void display();
