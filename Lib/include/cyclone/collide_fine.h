@@ -188,28 +188,28 @@ namespace cyclone {
          * can be incremented each time a contact is detected, while
          * this pointer points to the first contact found.
          */
-        Contact *contactArray;
+        Contact *contactArray = nullptr;
 
         /** Holds the contact array to write into. */
-        Contact *contacts;
+        Contact *contacts = nullptr;
 
         /** Holds the maximum number of contacts the array can take. */
-        int contactsLeft;
+        int contactsLeft = 0;
 
         /** Holds the number of contacts found so far. */
-        unsigned contactCount;
+        unsigned contactCount = 0;
 
         /** Holds the friction value to write into any collisions. */
-        real friction;
+        real friction = 0.f;
 
         /** Holds the restitution value to write into any collisions. */
-        real restitution;
+        real restitution = 0.f;
 
         /**
          * Holds the collision tolerance, even uncolliding objects this
          * close should have collisions generated.
          */
-        real tolerance;
+        real tolerance = 0.f;
 
         /**
          * Checks if there are more contacts available in the contact

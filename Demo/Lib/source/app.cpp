@@ -193,9 +193,9 @@ void MassAggregateApplication::update()
 
 RigidBodyApplication::RigidBodyApplication()
 :
+    resolver(maxContacts * 8),
     theta(0.0f),
     phi(15.0f),
-    resolver(maxContacts*8),
 
     renderDebugInfo(false),
     pauseSimulation(true),

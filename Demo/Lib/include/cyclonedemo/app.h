@@ -192,22 +192,22 @@ public:
     cyclone::ContactResolver resolver;
 
     /** Holds the camera angle. */
-    float theta;
+    float theta = 0.f;
 
     /** Holds the camera elevation. */
-    float phi;
+    float phi = 0.f;
 
     /** Holds the position of the mouse at the last frame of a drag. */
-    int last_x, last_y;
+    int last_x = 0, last_y = 0;
 
     /** True if the contacts should be rendered. */
-    bool renderDebugInfo;
+    bool renderDebugInfo = false;
 
     /** True if the simulation is paused. */
-    bool pauseSimulation;
+    bool pauseSimulation = false;
 
     /** Pauses the simulation after the next frame automatically */
-    bool autoPauseSimulation;
+    bool autoPauseSimulation = false;
 
     /** Processes the contact generation code. */
     virtual void generateContacts() = 0;

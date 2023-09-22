@@ -101,8 +101,8 @@ struct TimingData
 
 private:
     // These are private to stop instances being created: use get().
-    TimingData() = delete;
-    TimingData(const TimingData &) = delete;
+    TimingData() = default;
+    TimingData(const TimingData &) = default;
     TimingData& operator=(const TimingData&) = delete;
 };
 
