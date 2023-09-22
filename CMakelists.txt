@@ -20,4 +20,4 @@ find_package(catch2 REQUIRED)
 
 add_subdirectory(Lib)
 add_subdirectory(Test)
-add_subdirectory(Demo)
+add_subdirectory(Demos)

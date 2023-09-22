@@ -1,4 +1,4 @@
-project(BallisticDemo)
+project(BlobDemo)
 
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS 
 	${CMAKE_CURRENT_SOURCE_DIR}/source/*.h 
@@ -19,4 +19,8 @@ target_link_libraries (${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source/
+)
+
+set_target_properties(${PROJECT_NAME} 
+	PROPERTIES FOLDER "Demos"
 )

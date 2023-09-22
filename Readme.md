@@ -42,3 +42,6 @@ cmake --build build/Release
 
 ![Screenshot 1](./doc/ballistic_screenshot_1.jpg)
 ![Screenshot 2](./doc/bigballistic_screenshot_1.jpg)
+![Screenshot 3](./doc/blob_screenshot_1.jpg)
+![Screenshot 4](./doc/bridge_screenshot_1.jpg)
+![Screenshot 5](./doc/explosion_screenshot_1.jpg)
