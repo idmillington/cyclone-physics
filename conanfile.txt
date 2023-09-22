@@ -1,0 +1,14 @@
+[requires]
+freeglut/3.4.0
+glm/cci.20230113
+fmtlog/2.2.1
+catch2/3.4.0
+
+[options]
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[layout]
+cmake_layout
