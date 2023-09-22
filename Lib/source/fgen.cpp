@@ -41,7 +41,7 @@ Buoyancy::Buoyancy(const Vector3& cOfB, real maxDepth, real volume,
 	Buoyancy::waterHeight = waterHeight;
 }
 
-void Buoyancy::updateForce(RigidBody* body, real duration)
+void Buoyancy::updateForce(RigidBody* body, real /*duration*/)
 {
 	// Calculate the submersion depth
 	Vector3 pointInWorld = body->getPointInWorldSpace(centreOfBuoyancy);
@@ -70,7 +70,7 @@ Gravity::Gravity(const Vector3& gravity)
 {
 }
 
-void Gravity::updateForce(RigidBody* body, real duration)
+void Gravity::updateForce(RigidBody* body, real /*duration*/)
 {
 	// Check that we do not have infinite mass
 	if (!body->hasFiniteMass()) return;
@@ -125,7 +125,7 @@ void Aero::updateForce(RigidBody* body, real duration)
 }
 
 void Aero::updateForceFromTensor(RigidBody* body, real /*duration*/,
-	const Matrix3& tensor)
+	const Matrix3& tensr)
 {
 	// Calculate total velocity (windspeed and body's velocity).
 	Vector3 velocity = body->getVelocity();
@@ -135,7 +135,7 @@ void Aero::updateForceFromTensor(RigidBody* body, real /*duration*/,
 	Vector3 bodyVel = body->getTransform().transformInverseDirection(velocity);
 
 	// Calculate the force in body coordinates
-	Vector3 bodyForce = tensor.transform(bodyVel);
+	Vector3 bodyForce = tensr.transform(bodyVel);
 	Vector3 force = body->getTransform().transformDirection(bodyForce);
 
 	// Apply the force

@@ -273,13 +273,13 @@ namespace cyclone {
          * Holds the number of iterations to perform when resolving
          * velocity.
          */
-        unsigned velocityIterations;
+        unsigned velocityIterations = 0;
 
         /**
          * Holds the number of iterations to perform when resolving
          * position.
          */
-        unsigned positionIterations;
+        unsigned positionIterations = 0;
 
         /**
          * To avoid instability velocities smaller
@@ -288,7 +288,7 @@ namespace cyclone {
          * interpenetrate visually. A good starting point is the default
          * of 0.01.
          */
-        real velocityEpsilon;
+        real velocityEpsilon = 0.f;
 
         /**
          * To avoid instability penetrations
@@ -297,26 +297,26 @@ namespace cyclone {
          * bodies may interpenetrate visually. A good starting point is
          * the default of0.01.
          */
-        real positionEpsilon;
+        real positionEpsilon = 0.f;
 
     public:
         /**
          * Stores the number of velocity iterations used in the
          * last call to resolve contacts.
          */
-        unsigned velocityIterationsUsed;
+        unsigned velocityIterationsUsed = 0;
 
         /**
          * Stores the number of position iterations used in the
          * last call to resolve contacts.
          */
-        unsigned positionIterationsUsed;
+        unsigned positionIterationsUsed = 0;
 
     private:
         /**
          * Keeps track of whether the internal settings are valid.
          */
-        bool validSettings;
+        bool validSettings = false;
 
     public:
         /**

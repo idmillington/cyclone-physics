@@ -143,7 +143,7 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray,
         // Find the contact with the largest closing velocity;
         real max = REAL_MAX;
         unsigned maxIndex = numContacts;
-        for (int i = 0; i < numContacts; i++)
+        for (unsigned int i = 0; i < numContacts; i++)
         {
             real sepVel = contactArray[i].calculateSeparatingVelocity();
             if (sepVel < max &&
@@ -162,7 +162,7 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray,
 
         // Update the interpenetrations for all particles
         Vector3 *move = contactArray[maxIndex].particleMovement;
-        for (int i = 0; i < numContacts; i++)
+        for (unsigned int i = 0; i < numContacts; i++)
         {
             if (contactArray[i].particle[0] == contactArray[maxIndex].particle[0])
             {

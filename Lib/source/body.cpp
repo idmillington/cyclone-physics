@@ -573,9 +573,9 @@ void RigidBody::addTorque(const Vector3& torque)
 	isAwake = true;
 }
 
-void RigidBody::setAcceleration(const Vector3& acceleration)
+void RigidBody::setAcceleration(const Vector3& accel)
 {
-	RigidBody::acceleration = acceleration;
+	acceleration = accel;
 }
 
 void RigidBody::setAcceleration(const real x, const real y, const real z)

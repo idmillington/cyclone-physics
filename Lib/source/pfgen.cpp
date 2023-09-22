@@ -37,7 +37,7 @@ ParticleGravity::ParticleGravity(const Vector3& gravity)
 {
 }
 
-void ParticleGravity::updateForce(Particle* particle, real duration)
+void ParticleGravity::updateForce(Particle* particle, real /*duration*/)
 {
     // Check that we do not have infinite mass
     if (!particle->hasFiniteMass()) return;
@@ -51,7 +51,7 @@ ParticleDrag::ParticleDrag(real k1, real k2)
 {
 }
 
-void ParticleDrag::updateForce(Particle* particle, real duration)
+void ParticleDrag::updateForce(Particle* particle, real /*duration*/)
 {
     Vector3 force;
     particle->getVelocity(&force);
@@ -71,7 +71,7 @@ ParticleSpring::ParticleSpring(Particle *other, real sc, real rl)
 {
 }
 
-void ParticleSpring::updateForce(Particle* particle, real duration)
+void ParticleSpring::updateForce(Particle* particle, real /*duration*/)
 {
     // Calculate the vector of the spring
     Vector3 force;
@@ -99,7 +99,7 @@ waterHeight(waterHeight), liquidDensity(liquidDensity)
 {
 }
 
-void ParticleBuoyancy::updateForce(Particle* particle, real duration)
+void ParticleBuoyancy::updateForce(Particle* particle, real /*duration*/)
 {
     // Calculate the submersion depth
     real depth = particle->getPosition().y;
@@ -127,7 +127,7 @@ ParticleBungee::ParticleBungee(Particle *other, real sc, real rl)
 {
 }
 
-void ParticleBungee::updateForce(Particle* particle, real duration)
+void ParticleBungee::updateForce(Particle* particle, real /*duration*/)
 {
     // Calculate the vector of the spring
     Vector3 force;
@@ -189,12 +189,12 @@ ParticleAnchoredSpring::ParticleAnchoredSpring(Vector3 *anchor,
 {
 }
 
-void ParticleAnchoredSpring::init(Vector3 *anchor, real springConstant,
-                                  real restLength)
+void ParticleAnchoredSpring::init(Vector3 *anchr, real springConst,
+                                  real restLen)
 {
-    ParticleAnchoredSpring::anchor = anchor;
-    ParticleAnchoredSpring::springConstant = springConstant;
-    ParticleAnchoredSpring::restLength = restLength;
+    anchor = anchr;
+    springConstant = springConst;
+    restLength = restLen;
 }
 
 void ParticleAnchoredBungee::updateForce(Particle* particle, real /*duration*/)

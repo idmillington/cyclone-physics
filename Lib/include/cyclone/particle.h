@@ -83,14 +83,14 @@ namespace cyclone {
          * infinite mass (immovable) than zero mass
          * (completely unstable in numerical simulation).
          */
-        real inverseMass;
+        real inverseMass = 0.f;
 
         /**
          * Holds the amount of damping applied to linear
          * motion. Damping is required to remove energy added
          * through numerical instability in the integrator.
          */
-        real damping;
+        real damping = 0.f;
 
         /**
          * Holds the linear position of the particle in
